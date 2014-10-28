@@ -1,0 +1,23 @@
+{
+  "name": "Context",
+  "description": "Extension for providing additional context about any selected term",
+
+  "version": "1.0",
+  "manifest_version": 2,
+
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "css": ["styles.css"],
+      "js": [
+        "jquery-2.1.1.min.js",
+        "utilities.js",
+        "config.js",
+        "cardstacks.js",
+        "hover_pane.js",
+        "content_script.js"
+      ],
+      "run_at": "document_end"
+    }
+  ]
+}

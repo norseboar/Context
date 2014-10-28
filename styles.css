@@ -1,0 +1,53 @@
+/* Styles for context pane */
+#lipsum {
+    width:500px;
+}
+
+.hover-pane {
+    border-style: solid;
+    border-width: 1px;
+    border-color: gray;
+    box-shadow: 0px 0px 10px #888888;
+    background-color: white;
+    width: 400px;
+    position:absolute;
+
+    /* The z-index must be comically large because this is an extension.
+       The largest z-index of the page that is being augmented is unknown, so int max
+       is used to be safe. */
+    z-index:2147483647;
+}
+
+.hover-pane iframe {
+  border:0;
+}
+
+.pane-content {
+    font-family: Arial, sans-serif;
+    padding-top: 10px;
+    padding-right: 30px;
+    padding-bottom: 25px;
+    padding-left: 30px;
+}
+
+.pane-content img {
+  float: right;
+  padding-top: 10px;
+  padding-left: 5px;
+  padding-bottom: 5px;
+}
+
+.pane-content h2 {
+  font-size: 20px;
+  float:left;
+}
+
+.pane-content p {
+  clear:left;
+}
+
+.default-message {
+  color:gray;
+  font-style: italic;
+  font-size: 10px;
+}
