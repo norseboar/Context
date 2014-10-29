@@ -23,6 +23,11 @@
 
     var element = $(selection.anchorNode.parentElement);
 
+    // Move the hoverPane into place and start a loading animation
+    hp.movePane(element);
+    hp.emptyContent();
+    hp.appendContent($('<div class=spinnerHolder><div class="spinner"></div></div>'))
+    Spinners.create($('.spinner')).center().play();
 
     // If the term is associated with a cardstack, show the cardstack
     var iframe = getCardstackContent(query);
@@ -56,6 +61,7 @@
     $.getJSON(CONTEXT.strings.freebase_search_url, params, function(data, textStatus, jqXHR){
       // Validate that the response is good
       if(!data.result || !data.result[0] || !data.result[0]["mid"] || !data.result[0]["score"]){
+        showNoContent(query);
         return null;
       };
 
@@ -65,16 +71,23 @@
 
       // filter out very unrelated items
       if(data.result[0]["score"] < CONTEXT.freebaseMinimum){
+        showNoContent(query)
         return null;
       }
 
       var mid = data.result[0]["mid"];
       $.getJSON(CONTEXT.strings.freebase_topic_url + mid, function(data, textStatus, jqXHR){
         if(!data){
+          showNoContent(query);
           throw new Error("No topic returned");
         }
+        try {
+          updateContextPane(getFreebasePaneContent(data), element);
+        } catch (e) {
+          showNoContent(query);
+          console.log(e.message);
+        }
 
-        updateContextPane(getFreebasePaneContent(data), element);
       });
     });
   };
@@ -121,13 +134,25 @@
   // Moves the context pane to the right of the parent element of the selected text
   var updateContextPane = function (content, element) {
     if(!content){
-      return;
+      showError();
+      return null;
     }
-    // Position the context pane to the right of the element containing selected text
-    hp.movePane(element);
+
+    // Fill the content of the pane. It will already be positioned at the start
     hp.emptyContent();
     hp.appendContent(content);
   };
+
+  var showNoContent = function(query){
+    hp.emptyContent();
+    hp.appendContent($('<div class="pane-content"><p>We couldn\'t find anything related to ' +
+      query +'</p></div>'));
+  };
+
+  var showError = function() {
+    hp.emptyContent();
+    hp.appendContent($('<div class="pane-content"><p>We couldn\'t find anything related to your selection</p></div>'));
+  }
 
   // Strips out any punctuation that should end a word (whitespace, comma,
   // colon, semicolon, period, question mark, exclamation mark)

@@ -12,6 +12,7 @@
       "js": [
         "jquery-2.1.1.min.js",
         "jquery-highlight.js",
+        "spinners.min.js",
         "utilities.js",
         "config.js",
         "cardstacks.js",

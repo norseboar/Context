@@ -15,12 +15,12 @@ CONTEXT.hoverPane = function() {
   paneElement.appendTo('body');
   mainElement.appendTo(paneElement);
   brandingElement.appendTo(paneElement);
-  paneElement.hide();
+  paneElement.fadeOut(200);
 
   // Set up a handler to dismiss the hover pane if it's clicked out of
   $('body').mousedown(function() {
     if(!paneElement.is(':hover')) {
-      paneElement.hide();
+      paneElement.fadeOut(200);
     }
   });
 
@@ -44,7 +44,7 @@ CONTEXT.hoverPane = function() {
     paneElement.css({
       top: (pos.top + 5) + "px",
       left: (pos.left + width + 10) + "px"
-    }).show();
+    }).fadeIn(200);
   };
 
   // Add content to the hoverPane. This can be done without this method through

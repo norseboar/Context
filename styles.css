@@ -35,7 +35,7 @@
 }
 
 .branding p {
-  margin: .5em 1em .5em 1em;
+  margin: .5em 1em 1em 1em;
   color: #2a2a2a;
   font-family: Arial, sans-serif;
   font-size: 11px;
@@ -81,4 +81,15 @@
 .cardstack-highlight:hover {
   text-decoration:underline;
   cursor: pointer;
+}
+
+.spinnerHolder {
+  position:relative;
+  top:0;
+  height: 150px;
+  width: 100%;
+}
+
+.spinner {
+  position:absolute;
 }
