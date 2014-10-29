@@ -45,7 +45,8 @@
     var iframe = null;
     if(url){
       iframe = $('<iframe src="' + url +
-      '" width="400" height="500"></iframe>');
+      '" width="' + CONTEXT.hoverPaneWidth + '" height="' + CONTEXT.hoverPaneHeight +
+      '"></iframe>');
     }
     return iframe;
   };
@@ -121,7 +122,7 @@
       console.log('No image available');
     }
 
-    var paneContent = $('<div class="pane-content"></div>');
+    var paneContent = $('<div class="pane-content nano-content"></div>');
     paneContent.append(properties.title);
     if(properties.image) {
       paneContent.append(properties.image);
