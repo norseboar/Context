@@ -9,39 +9,22 @@ CONTEXT.hoverPane = function() {
   var hp = {};
 
   // Create a jquery object for the frame
-  var paneElement = $('<div class="hover-pane"></div>');
-  var mainElement = $('<div class="pane-main"></div>');
-  var brandingElement = $('<div class="branding"><p>Powered by <span class="context-logo">Context</span></p></div>')
-  paneElement.appendTo('body');
-  mainElement.appendTo(paneElement);
-  brandingElement.appendTo(paneElement);
-  paneElement.hide();
+  var element = $('<div class="hover-pane"></div>');
+  element.appendTo('body');
+  element.hide();
 
   // Set up a handler to dismiss the hover pane if it's clicked out of
   $('body').mousedown(function() {
-    if(!paneElement.is(':hover')) {
-      paneElement.hide();
+    if(!element.is(':hover')) {
+      element.hide();
     }
   });
 
-  // Gets the closest parent to an element that is /not/ inline (if the initial
-  // element is already not inline, it will be returned as-is)
-  var getNearestBlockElement = function(jqElement){
-    if(!(window.getComputedStyle(jqElement[0]).display === "inline")){
-      return jqElement;
-    }
-    else {
-      return getNearestBlockElement(jqElement.parent());
-    }
-  };
-
-  // Position the frame relative to the target jQuery element (not including
-  // inline targets)
+  // Position the frame relative to the target jQuery element
   hp.movePane = function(target) {
-    target = getNearestBlockElement(target);
     var pos = target.offset();
     var width = target.outerWidth();
-    paneElement.css({
+    element.css({
       top: (pos.top + 5) + "px",
       left: (pos.left + width + 10) + "px"
     }).show();
@@ -50,11 +33,11 @@ CONTEXT.hoverPane = function() {
   // Add content to the hoverPane. This can be done without this method through
   // jQuery selectors, but this method is preferred.
   hp.emptyContent = function(){
-    mainElement.empty();
+    element.empty();
   };
 
   hp.appendContent = function(content){
-    content.appendTo(mainElement);
+    content.appendTo(element);
   };
 
   return hp;
