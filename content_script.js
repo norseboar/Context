@@ -23,6 +23,7 @@
 
     var element = $(selection.anchorNode.parentElement);
 
+
     // If the term is associated with a cardstack, show the cardstack
     var iframe = getCardstackContent(query);
     if(iframe) {
