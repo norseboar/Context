@@ -11,6 +11,7 @@
       "css": ["styles.css"],
       "js": [
         "jquery-2.1.1.min.js",
+        "jquery-highlight.js",
         "utilities.js",
         "config.js",
         "cardstacks.js",
