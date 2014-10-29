@@ -72,7 +72,7 @@ cs.mappings = [
   },
   {
     keywords: ['immigration reform', 'dream act', 'daca'],
-    url: 'http://www.vox.com/cards/obama-immigration-executive-action-amnesty-congress/what-is-daca-obama-deferred-action-dreamers-immigration'
+    url: 'http://www.vox.com/cards/obama-immigration-executive-action-amnesty-congress'
   }
 ];
 

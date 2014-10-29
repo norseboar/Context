@@ -7,22 +7,33 @@
   var init = function(){
     hp = CONTEXT.hoverPane();
 
+    // Wrap all cardstack-related terms in highlights that will pop cardstacks
+    $('p').highlight(CONTEXT.cardstacks.keywords, { element: 'span',
+      className: 'cardstack-highlight'});
+    $('.cardstack-highlight').click(function(event){
+      var element = $(event.currentTarget);
+      getContext(element, element.text());
+      // var iframe = getCardstackContent(element.text());
+      // if(iframe) {
+      //   updateContextPane(iframe, element);
+      // }
+    });
+
     $('body').mouseup(function () {
       setTimeout(function () {
-        getContext(window.getSelection());
+        var selection = window.getSelection();
+        var element = $(selection.anchorNode.parentElement);
+        var query = getFullTextFromSelection(selection);
+        if(query.isEmpty()) {
+          return;
+        }
+        getContext(element, query);
       }, (400));
     });
   };
 
   // Functions for retrieving data
-  var getContext = function(selection){
-    var query = getFullTextFromSelection(selection);
-    if(query.isEmpty()) {
-      return;
-    }
-
-    var element = $(selection.anchorNode.parentElement);
-
+  var getContext = function(element, query){
     // Move the hoverPane into place and start a loading animation
     hp.movePane(element);
     hp.emptyContent();
