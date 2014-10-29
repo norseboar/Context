@@ -10,7 +10,7 @@ CONTEXT.hoverPane = function() {
 
   // Create a jquery object for the frame
   var paneElement = $('<div class="hover-pane"></div>');
-  var mainElement = $('<div class="nano"></div>');
+  var mainElement = $('<div class="pane-main"></div>');
   var brandingElement = $('<div class="branding"><p>Powered by <span class="context-logo">Context</span></p></div>')
   paneElement.appendTo('body');
   mainElement.appendTo(paneElement);
@@ -55,7 +55,6 @@ CONTEXT.hoverPane = function() {
 
   hp.appendContent = function(content){
     content.appendTo(mainElement);
-    $('.nano').nanoScroller();
   };
 
   return hp;
