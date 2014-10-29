@@ -34,6 +34,13 @@ cs.mappings = [
   }
 ];
 
+cs.keywords = [];
+cs.mappings.forEach(function(mapping){
+  mapping.keywords.forEach(function (keyword){
+    cs.keywords.push(keyword);
+  });
+});
+
 cs.get = function(query) {
   var url = '';
   cs.mappings.forEach(function (mapping){

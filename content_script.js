@@ -7,6 +7,17 @@
   var init = function(){
     hp = CONTEXT.hoverPane();
 
+    // Wrap all cardstack-related terms in highlights that will pop cardstacks
+    $('p').highlight(CONTEXT.cardstacks.keywords, { element: 'span',
+      className: 'cardstack-highlight'});
+    $('.cardstack-highlight').click(function(event){
+      var element = $(event.currentTarget);
+      var iframe = getCardstackContent(element.text());
+      if(iframe) {
+        updateContextPane(iframe, element);
+      }
+    });
+
     $('body').mouseup(function () {
       setTimeout(function () {
         getContext(window.getSelection());
@@ -20,27 +31,33 @@
     if(query.isEmpty()) {
       return;
     }
-    query = query.toLowerCase();
 
     var element = $(selection.anchorNode.parentElement);
 
     // If the term is associated with a cardstack, show the cardstack
-    var url = cs.get(query);
-    if(url){
-      var iframe = $('<iframe src="' + url +
-      '" width="400" height="500"></iframe>');
+    var iframe = getCardstackContent(query);
+    if(iframe) {
       updateContextPane(iframe, element);
     }
-
     // Otherwise, get the term from FreeBase
     else {
       getFreebaseTopic(query, element);
     }
   }
 
+  var getCardstackContent = function (query) {
+    var url = cs.get(query.toLowerCase());
+    var iframe = null;
+    if(url){
+      iframe = $('<iframe src="' + url +
+      '" width="400" height="500"></iframe>');
+    }
+    return iframe;
+  };
+
   var getFreebaseTopic = function(query, element){
     var params = {
-      'query': query,
+      'query': query.toLowerCase(),
       'lang': 'en',
       'limit': 1
     };
