@@ -8,16 +8,12 @@
     hp = CONTEXT.hoverPane();
 
     // Wrap all cardstack-related terms in highlights that will pop cardstacks
-    $('p').highlight(CONTEXT.cardstacks.keywords, { element: 'span',
-      className: 'cardstack-highlight'});
-    $('.cardstack-highlight').click(function(event){
-      var element = $(event.currentTarget);
-      getContext(element, element.text());
-      // var iframe = getCardstackContent(element.text());
-      // if(iframe) {
-      //   updateContextPane(iframe, element);
-      // }
-    });
+    // $('p').highlight(CONTEXT.cardstacks.keywords, { element: 'span',
+    //   className: 'cardstack-highlight'});
+    // $('.cardstack-highlight').click(function(event){
+    //   var element = $(event.currentTarget);
+    //   getContext(element, element.text());
+    // });
 
     $('body').mouseup(function () {
       setTimeout(function () {
