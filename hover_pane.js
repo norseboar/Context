@@ -9,18 +9,19 @@ CONTEXT.hoverPane = function() {
   var hp = {};
 
   // Create a jquery object for the frame
-  var paneElement = $('<div class="hover-pane"></div>');
-  var mainElement = $('<div class="pane-main"></div>');
-  var brandingElement = $('<div class="branding"><p>Powered by <span class="context-logo">Context</span></p></div>')
-  paneElement.appendTo('body');
-  mainElement.appendTo(paneElement);
-  brandingElement.appendTo(paneElement);
-  paneElement.fadeOut(200);
+  var pane = $('<div class="hover-pane"></div>');
+  var paneBody = $('<div class="pane-body"></div>');
+  var branding = $('<div class="branding"><p>Powered by <span class="context-logo">Context</span></p></div>')
+  pane.appendTo('body');
+  paneBody.appendTo(pane);
+  branding.appendTo(pane);
+
+  pane.hide();
 
   // Set up a handler to dismiss the hover pane if it's clicked out of
   $('body').mousedown(function() {
-    if(!paneElement.is(':hover')) {
-      paneElement.fadeOut(200);
+    if(!pane.is(':hover')) {
+      pane.fadeOut(200);
     }
   });
 
@@ -41,20 +42,37 @@ CONTEXT.hoverPane = function() {
     target = getNearestBlockElement(target);
     var pos = target.offset();
     var width = target.outerWidth();
-    paneElement.css({
+    pane.css({
       top: (pos.top + 5) + "px",
       left: (pos.left + width + 10) + "px"
     }).fadeIn(200);
+
   };
 
   // Add content to the hoverPane. This can be done without this method through
   // jQuery selectors, but this method is preferred.
-  hp.emptyContent = function(){
-    mainElement.empty();
+  hp.reset = function(){
+    paneBody.empty();
+    paneBody.css({ height: 200, width: 400 })
   };
 
-  hp.appendContent = function(content){
-    content.appendTo(mainElement);
+  hp.appendContent = function(content, isText){
+    // Do not apply text formatting to non-text objects (like iframes)
+    if(isText){
+      var paneContent = $('<div class="pane-content"></div>');
+      content.appendTo(paneContent.appendTo(paneBody));
+    }
+    else {
+      content.appendTo(paneBody);
+    }
+
+    // For some reason, a small amount (like 20) needs to be added to
+    // height to accommodate the iframe
+    var h = content.height() < CONTEXT.maxHeight ? content.height() : CONTEXT.maxHeight;
+    if(h > paneBody.height()){
+      paneBody.animate({ height: h + 20 });
+    }
+
   };
 
   return hp;

@@ -23,6 +23,7 @@
         if(query.isEmpty()) {
           return;
         }
+
         getContext(element, query);
       }, (400));
     });
@@ -32,14 +33,14 @@
   var getContext = function(element, query){
     // Move the hoverPane into place and start a loading animation
     hp.movePane(element);
-    hp.emptyContent();
+    hp.reset();
     hp.appendContent($('<div class=spinnerHolder><div class="spinner"></div></div>'))
     Spinners.create($('.spinner')).center().play();
 
     // If the term is associated with a cardstack, show the cardstack
     var iframe = getCardstackContent(query);
     if(iframe) {
-      updateContextPane(iframe, element);
+      updateContextPane(iframe, element, false);
     }
     // Otherwise, get the term from FreeBase
     else {
@@ -52,7 +53,7 @@
     var iframe = null;
     if(url){
       iframe = $('<iframe src="' + url +
-      '" width="400" height="500"></iframe>');
+      '" width="400" height="' + 400 + '"></iframe>');
     }
     return iframe;
   };
@@ -89,7 +90,7 @@
           throw new Error("No topic returned");
         }
         try {
-          updateContextPane(getFreebasePaneContent(data), element);
+          updateContextPane(getFreebasePaneContent(data), element, true);
         } catch (e) {
           showNoContent(query);
           console.log(e.message);
@@ -128,31 +129,31 @@
       console.log('No image available');
     }
 
-    var paneContent = $('<div class="pane-content"></div>');
-    paneContent.append(properties.title);
+    var content = $('<div></div>');
+    content.append(properties.title);
     if(properties.image) {
-      paneContent.append(properties.image);
+      content.append(properties.image);
     }
-    paneContent.append(properties.body);
-    return paneContent;
+    content.append(properties.body);
+    return content;
 
   };
 
   // Moves the context pane to the right of the parent element of the selected text
-  var updateContextPane = function (content, element) {
+  var updateContextPane = function (content, element, isText) {
     if(!content){
       showError();
       return null;
     }
 
     // Fill the content of the pane. It will already be positioned at the start
-    hp.emptyContent();
-    hp.appendContent(content);
+    hp.reset();
+    hp.appendContent(content, isText);
   };
 
   var showNoContent = function(query){
-    hp.emptyContent();
-    hp.appendContent($('<div class="pane-content"><p class="error">No results found</p></div>'));
+    hp.reset();
+    hp.appendContent($('<div><p class="error">No results found</p></div>'), true);
   };
 
   // Strips out any punctuation that should end a word (whitespace, comma,
