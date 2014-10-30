@@ -4,6 +4,7 @@ CONTEXT.freebaseMinimum = 75;
 CONTEXT.strings = {};
 CONTEXT.maxHeight = 500;
 CONTEXT.minWidth = 300;
+CONTEXT.wikipediaPrefix = 'http://en.m.wikipedia.org/wiki/';
 (function (){
   s = CONTEXT.strings;
   s.google_api_key = "AIzaSyBTLamb0-7P5lVpI5DWbcVLRd6DEfBQynU";

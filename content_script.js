@@ -23,7 +23,7 @@
         if(query.isEmpty()) {
           return;
         }
-
+        console.log("searching for " + query);
         getContext(element, query);
       }, (400));
     });
@@ -44,7 +44,8 @@
     }
     // Otherwise, get the term from FreeBase
     else {
-      getFreebaseTopic(query, element);
+      // getFreebaseTopic(query, element);
+      updateContextPane(getWikipediaContent(query), element, false);
     }
   }
 
@@ -58,6 +59,11 @@
     return iframe;
   };
 
+  var getWikipediaContent = function (query) {
+    query = query.replace(/\s+/gm, '_');
+    return $('<iframe src="' + CONTEXT.wikipediaPrefix + query +
+      '" width="400" height="400"></iframe>');
+  }
   var getFreebaseTopic = function(query, element){
     var params = {
       'query': query.toLowerCase(),
@@ -65,7 +71,6 @@
       'limit': 1
     };
 
-    console.log("searching for query " + query);
     $.getJSON(CONTEXT.strings.freebase_search_url, params, function(data, textStatus, jqXHR){
       // Validate that the response is good
       if(!data.result || !data.result[0] || !data.result[0]["mid"] || !data.result[0]["score"]){
