@@ -51,7 +51,7 @@
 
 .pane-content {
     font-family: 'Open Sans', sans-serif;
-    margin-top: 10px;
+    margin-top: 20px;
     margin-right: 20px;
     margin-bottom: 25px;
     margin-left: 20px;
@@ -65,11 +65,15 @@
 }
 
 .pane-content h2 {
-  font-size: 20px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 2em;
   float:left;
 }
 
 .pane-content p {
+  margin-top: 15px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: .9em;
   clear:left;
 }
 
