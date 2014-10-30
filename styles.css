@@ -68,7 +68,7 @@
   clear:left;
 }
 
-.default-message {
+.error {
   color:gray;
   font-style: italic;
   font-size: 10px;

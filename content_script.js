@@ -8,12 +8,12 @@
     hp = CONTEXT.hoverPane();
 
     // Wrap all cardstack-related terms in highlights that will pop cardstacks
-    // $('p').highlight(CONTEXT.cardstacks.keywords, { element: 'span',
-    //   className: 'cardstack-highlight'});
-    // $('.cardstack-highlight').click(function(event){
-    //   var element = $(event.currentTarget);
-    //   getContext(element, element.text());
-    // });
+    $('p').highlight(CONTEXT.cardstacks.keywords, { element: 'span',
+      className: 'cardstack-highlight'});
+    $('.cardstack-highlight').click(function(event){
+      var element = $(event.currentTarget);
+      getContext(element, element.text());
+    });
 
     $('body').mouseup(function () {
       setTimeout(function () {
@@ -152,14 +152,8 @@
 
   var showNoContent = function(query){
     hp.emptyContent();
-    hp.appendContent($('<div class="pane-content"><p>We couldn\'t find anything related to ' +
-      query +'</p></div>'));
+    hp.appendContent($('<div class="pane-content"><p class="error">No results found</p></div>'));
   };
-
-  var showError = function() {
-    hp.emptyContent();
-    hp.appendContent($('<div class="pane-content"><p>We couldn\'t find anything related to your selection</p></div>'));
-  }
 
   // Strips out any punctuation that should end a word (whitespace, comma,
   // colon, semicolon, period, question mark, exclamation mark)
