@@ -73,7 +73,7 @@
 .error {
   color:gray;
   font-style: italic;
-  font-size: 10px;
+  font-size: .9em;
 }
 
 .cardstack-highlight {
