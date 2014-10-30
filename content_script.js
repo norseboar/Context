@@ -34,7 +34,7 @@
     // Move the hoverPane into place and start a loading animation
     hp.movePane(element);
     hp.reset();
-    hp.appendContent($('<div class=spinnerHolder><div class="spinner"></div></div>'))
+    hp.appendContent($('<div class=spinnerContainer><div class="spinner"></div></div>'))
     Spinners.create($('.spinner')).center().play();
 
     // If the term is associated with a cardstack, show the cardstack
@@ -162,6 +162,9 @@
     return this.replace(/[,:;.?!]/, '');
   };
 
+  String.prototype.condenseWhitespace = function(){
+    return this.replace(/\s+/gm, ' ');
+  }
   // Returns any words that are partially selected in addition to the full
   // text of a selection
   var getFullTextFromSelection = function (selection){
@@ -175,8 +178,17 @@
 
     var earlyIndex, lateIndex = 0;
     var earlyText, lateText = "";
+    var anchorIsFirst = true;
 
-    if(selection.anchorOffset < selection.focusOffset){
+    var anchorPosition = selection.anchorNode.compareDocumentPosition(selection.focusNode);
+    if(anchorPosition) {
+      anchorIsFirst = (Node.DOCUMENT_POSITION_FOLLOWING & anchorPosition) ||
+        (Node.DOCUMENT_POSITION_CONTAINED_BY & anchorPosition);
+    }
+    else {
+      anchorIsFirst = selection.anchorOffset <= selection.focusOffset;
+    }
+    if(anchorIsFirst){
       earlyIndex = selection.anchorOffset - 1;
       earlyText = selection.anchorNode.nodeValue;
       lateIndex = selection.focusOffset;
@@ -207,7 +219,7 @@
       }
     }
 
-    return text.removePunctuation().trim();
+    return text.removePunctuation().condenseWhitespace().trim();
   };
 
   init();
