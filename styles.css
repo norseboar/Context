@@ -37,9 +37,9 @@
 }
 
 .branding p {
+  text-align: center;
   position:relative;
   top: -.5em;
-  left: 1em;
   color: #2a2a2a;
   font-family: 'Open Sans', sans-serif;
   font-size: .7em;
