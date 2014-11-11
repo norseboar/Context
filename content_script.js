@@ -46,6 +46,7 @@
     else {
       // getFreebaseTopic(query, element);
       updateContextPane(getWikipediaContent(query), element, false);
+      $('')
     }
   }
 
@@ -54,7 +55,7 @@
     var iframe = null;
     if(url){
       iframe = $('<iframe src="' + url +
-      '" width="400" height="' + 400 + '"></iframe>');
+      '" width="400" height="' + 400 + '" class="content-frame"></iframe>');
     }
     return iframe;
   };

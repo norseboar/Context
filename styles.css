@@ -23,7 +23,7 @@
 }
 
 .pane-body {
-  height: 200px;
+  height: 0px;
   width: 400px;
   overflow: auto;
 }
