@@ -33,9 +33,9 @@
   var getContext = function(element, query){
     // Move the hoverPane into place and start a loading animation
     hp.movePane(element);
-    hp.reset();
-    hp.appendContent($('<div class=spinnerContainer><div class="spinner"></div></div>'))
-    Spinners.create($('.spinner')).center().play();
+    // hp.reset();
+    // hp.appendContent($('<div class=spinnerContainer><div class="spinner"></div></div>'))
+    // Spinners.create($('.spinner')).center().play();
 
     // If the term is associated with a cardstack, show the cardstack
     var iframe = getCardstackContent(query);

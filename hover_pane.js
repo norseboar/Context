@@ -42,6 +42,7 @@ CONTEXT.hoverPane = function() {
     target = getNearestBlockElement(target);
     var pos = target.offset();
     var width = target.outerWidth();
+
     pane.css({
       top: (pos.top + 5) + "px",
       left: (pos.left + width + 10) + "px"
@@ -53,7 +54,7 @@ CONTEXT.hoverPane = function() {
   // jQuery selectors, but this method is preferred.
   hp.reset = function(){
     paneBody.empty();
-    paneBody.css({ height: 200, width: 400 })
+    paneBody.css({ height: 0, width: 400 })
   };
 
   hp.appendContent = function(content, isText){
