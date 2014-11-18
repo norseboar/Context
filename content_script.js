@@ -55,7 +55,8 @@
     var iframe = null;
     if(url){
       iframe = $('<iframe src="' + url +
-      '" width="400" height="' + 400 + '" class="content-frame"></iframe>');
+      '" width="' + hp.width + '" height="' + hp.height
+      + '" class="content-frame"></iframe>');
     }
     return iframe;
   };
@@ -63,7 +64,7 @@
   var getWikipediaContent = function (query) {
     query = query.replace(/\s+/gm, '_');
     return $('<iframe src="' + CONTEXT.wikipediaPrefix + query +
-      '" width="400" height="400"></iframe>');
+      '" width="' + hp.width + '" height="' + CONTEXT.iframeHeight + '"></iframe>');
   }
   var getFreebaseTopic = function(query, element){
     var params = {
