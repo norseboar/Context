@@ -3,17 +3,7 @@ var CONTEXT = CONTEXT || {};
 CONTEXT.freebaseMinimum = 75;
 CONTEXT.strings = {};
 CONTEXT.maxHeight = 500;
-CONTEXT.minHeight = 50;
-CONTEXT.minWidth = 330;
-CONTEXT.defaultWidth = 400;
-CONTEXT.defaultHeight = 400;
-CONTEXT.iframeHeight = 400;
-
-CONTEXT.frameLeftBuffer = 10;
-CONTEXT.frameRightBuffer = 10;
-CONTEXT.frameTopBuffer = 10;
-CONTEXT.frameBotBuffer = 10;
-
+CONTEXT.minWidth = 300;
 CONTEXT.wikipediaPrefix = 'http://en.m.wikipedia.org/wiki/';
 (function (){
   s = CONTEXT.strings;
