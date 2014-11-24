@@ -9,7 +9,7 @@ var cs = CONTEXT.cardstacks;
 // collections of two or three words
 cs.mappings = [
   {
-    keywords: ['obamacare'],
+    keywords: ['obamacare', 'affordable care act', 'aca'],
     url: 'http://www.vox.com/cards/obamacare'
   },
   {
