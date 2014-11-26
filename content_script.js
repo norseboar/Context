@@ -18,15 +18,27 @@
     $('body').mouseup(function () {
       setTimeout(function () {
         var selection = window.getSelection();
-        var element = $(selection.anchorNode.parentElement);
+        var parentElement = $(selection.anchorNode.parentElement);
+        var element = $(selection.focusNode);
         var query = getFullTextFromSelection(selection);
-        if(query.isEmpty()) {
+        if(!isQueryValid(query, element)) {
           return;
         }
         console.log("searching for " + query);
-        getContext(element, query);
+        getContext(parentElement, query);
       }, (400));
     });
+  };
+
+  // Decides if a query is valid to search for
+  // Includes making sure a query isn't empty, isn't too large, and isn't in a text box
+  var isQueryValid = function(query, element){
+    var valid = true;
+    valid = valid && !query.isEmpty();
+    valid = valid && query.split(/\s+/).length <= CONTEXT.maxQueryWords;
+    valid = valid && !element.is(":text");
+    valid = valid && !element.is("form");
+    return valid;
   };
 
   // Functions for retrieving data
