@@ -9,70 +9,82 @@ var cs = CONTEXT.cardstacks;
 // collections of two or three words
 cs.mappings = [
   {
-    keywords: ['obamacare', 'affordable care act', 'aca'],
-    url: 'http://www.vox.com/cards/obamacare'
+    keywords: ['obamacare', 'affordable care act', ' aca '],
+    url: 'https://www.vox.com/cards/obamacare'
   },
   {
     keywords: ['detroit bankruptcy'],
-    url: 'http://www.vox.com/cards/detroit-bankruptcy-pensions-municipal'
+    url: 'https://www.vox.com/cards/detroit-bankruptcy-pensions-municipal'
   },
   {
     keywords: ['individual mandate'],
-    url: 'http://www.vox.com/cards/individual-mandate'
+    url: 'https://www.vox.com/cards/individual-mandate'
   },
   {
     keywords: ['ebola'],
-    url: 'http://www.vox.com/cards/ebola-facts-you-need-to-know'
+    url: 'https://www.vox.com/cards/ebola-facts-you-need-to-know'
   },
   {
     keywords: ['michael brown', 'ferguson'],
-    url: 'http://www.vox.com/cards/mike-brown-protests-ferguson-missouri'
+    url: 'https://www.vox.com/cards/mike-brown-protests-ferguson-missouri'
+  },
+  {
+    keywords: ['darren wilson'],
+    url: 'https://www.vox.com/cards/mike-brown-protests-ferguson-missouri/mike-brown-police-officer-darren-wilson',
   },
   {
     keywords: ['global warming', 'climate change'],
-    url: 'http://www.vox.com/cards/global-warming'
+    url: 'https://www.vox.com/cards/global-warming'
   },
   {
     keywords: ['gun control', 'gun violence'],
-    url: 'http://www.vox.com/cards/gun-violence-facts'
+    url: 'https://www.vox.com/cards/gun-violence-facts'
   },
   {
     keywords: ['gay marriage', 'same-sex marriage', 'same sex marriage', 'marriage equality'],
-    url: 'http://www.vox.com/cards/same-sex-marriage'
+    url: 'https://www.vox.com/cards/same-sex-marriage'
   },
   {
     keywords: ['voting rights'],
-    url:'http://www.vox.com/cards/voting-rights-fight-explained'
+    url:'https://www.vox.com/cards/voting-rights-fight-explained'
   },
   {
     keywords: ['medicaid expansion'],
-    url:'http://www.vox.com/cards/medicaid-expansion-explained'
+    url:'https://www.vox.com/cards/medicaid-expansion-explained'
   },
   {
     keywords: ['vaccines', 'vaccine'],
-    url: 'http://www.vox.com/cards/vaccines'
+    url: 'https://www.vox.com/cards/vaccines'
   },
   {
     keywords: ['bitcoin', 'bitcoins'],
-    url: 'http://www.vox.com/cards/bitcoin'
+    url: 'https://www.vox.com/cards/bitcoin'
   },
   {
     keywords: ['campus rape', 'campus sexual assault', 'sexual assault on campus',
       'rape on campus', 'college sexual assault', 'sexual assault in college', 'title ix',
       'title nine'],
-    url: 'http://www.vox.com/cards/campus-sexual-assault-title-ix'
+    url: 'https://www.vox.com/cards/campus-sexual-assault-title-ix'
   },
   {
     keywords: ["obama's climate plan", "war on coal"],
-    url: 'http://www.vox.com/cards/obama-climate-plan'
+    url: 'https://www.vox.com/cards/obama-climate-plan'
   },
   {
     keywords: ['affirmative action'],
-    url: 'http://www.vox.com/cards/affirmative-action/what-is-affirmative-action'
+    url: 'https://www.vox.com/cards/affirmative-action/what-is-affirmative-action'
   },
   {
-    keywords: ['immigration reform', 'dream act', 'daca'],
-    url: 'http://www.vox.com/cards/obama-immigration-executive-action-amnesty-congress'
+    keywords: ['immigration reform', 'dream act', ' daca '],
+    url: 'https://www.vox.com/cards/obama-immigration-executive-action-amnesty-congress'
+  },
+  {
+    keywords: ['israel', 'palestine'],
+    url: 'https://www.vox.com/cards/israel-palestine/intro'
+  },
+  {
+    keywords: ['marijuana legalization'],
+    url: 'https://www.vox.com/cards/marijuana-legalization'
   }
 ];
 
