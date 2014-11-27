@@ -18,6 +18,9 @@
     $('body').mouseup(function () {
       setTimeout(function () {
         var selection = window.getSelection();
+        if(!selection) {
+          return;
+        };
         var parentElement = $(selection.anchorNode.parentElement);
         var element = $(selection.focusNode);
         var query = getFullTextFromSelection(selection);
@@ -37,7 +40,8 @@
     valid = valid && !query.isEmpty();
     valid = valid && query.split(/\s+/).length <= CONTEXT.maxQueryWords;
     valid = valid && !element.is(":text");
-    valid = valid && !element.is("form");
+    var close = element.closest("form");
+    valid = valid && element.closest("form").length === 0;
     return valid;
   };
 
