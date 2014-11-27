@@ -39,14 +39,25 @@
 .branding p {
   text-align: center;
   position:relative;
-  top: -.5em;
-  color: #2a2a2a;
+/*  top: -.5em;
+*/  color: #2a2a2a;
   font-family: 'Open Sans', sans-serif;
-  font-size: .7em;
+  font-size: .6em;
+
+
+  /* zero out some values so that host pages can't affect them */
+  margin-bottom: 0em;
+  margin-top: .5em;
+  line-height: normal;
+  font-weight: normal;
 }
 .context-logo {
   font-family: 'Ubuntu', sans-serif;
   font-weight: bold;
+  font-size: 1.2em;
+
+  /* zero out some values so that host pages can't affect them */
+  line-height: normal;
 }
 
 .pane-content {
