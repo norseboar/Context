@@ -55,6 +55,7 @@
   font-family: 'Ubuntu', sans-serif;
   font-weight: bold;
   font-size: 1.2em;
+  text-transform: lowercase;
 
   /* zero out some values so that host pages can't affect them */
   line-height: normal;
