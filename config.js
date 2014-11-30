@@ -4,6 +4,8 @@ CONTEXT.freebaseMinimum = 75;
 CONTEXT.strings = {};
 CONTEXT.maxHeight = 500;
 CONTEXT.minWidth = 300;
+CONTEXT.wikipediaMobileHost = 'en.m.wikipedia.org';
+CONTEXT.wikipediaHost = 'en.wikipedia.org';
 CONTEXT.wikipediaPrefix = 'https://en.m.wikipedia.org/wiki/';
 CONTEXT.maxQueryWords = 6;
 (function (){

@@ -20,6 +20,12 @@
         "content_script.js"
       ],
       "run_at": "document_end"
+    },
+    {
+      "matches": ["*://en.m.wikipedia.org/*"],
+      "js": [ "jquery-2.1.1.min.js", "mobile-wikipedia-links.js" ],
+      "run_at": "document_end",
+      "all_frames": true
     }
   ]
 }
