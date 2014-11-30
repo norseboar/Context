@@ -85,6 +85,10 @@ cs.mappings = [
   {
     keywords: ['marijuana legalization'],
     url: 'https://www.vox.com/cards/marijuana-legalization'
+  },
+  {
+    keywords: [' isis ', ' isil ', 'islamic state'],
+    url: 'https://www.vox.com/cards/things-about-isis-you-need-to-know/what-is-isis'
   }
 ];
 
