@@ -3,7 +3,11 @@ var CONTEXT = CONTEXT || {};
 CONTEXT.freebaseMinimum = 75;
 CONTEXT.strings = {};
 CONTEXT.maxHeight = 500;
-CONTEXT.minWidth = 300;
+CONTEXT.minWidth = 280;
+CONTEXT.minHeight = 150;
+CONTEXT.panePaddingWidth = 10;
+CONTEXT.panePaddingHeight = 5;
+
 CONTEXT.wikipediaMobileHost = 'en.m.wikipedia.org';
 CONTEXT.wikipediaHost = 'en.wikipedia.org';
 CONTEXT.wikipediaPrefix = 'https://en.m.wikipedia.org/wiki/';

@@ -39,13 +39,35 @@ CONTEXT.hoverPane = function() {
   // Position the frame relative to the target jQuery element (not including
   // inline targets)
   hp.movePane = function(target) {
+    // Get space around the target (distance from element edges to page edges)
     target = getNearestBlockElement(target);
-    var pos = target.offset();
-    var width = target.outerWidth();
+    var offset = target.offset();
+    var docHeight = $(window).height();
+    var docWidth = $(window).width();
+    var tarWidth = target.outerWidth();
+    var tarHeight = target.outerHeight();
+    var topSpace = offset.top - (CONTEXT.panePaddingHeight * 2);
+    var bottomSpace = docHeight - offset.top - tarHeight
+      - (CONTEXT.panePaddingHeight * 2);
+    var leftSpace = offset.left - (CONTEXT.panePaddingWidth * 2);
+    var rightSpace = docWidth - offset.left - tarWidth
+      - CONTEXT.panePaddingWidth * 2;
+
+    // if(rightSpace >= CONTEXT.minWidth){
+    //   pane.css({
+    //     top: (offset.top - CONTEXT.panePaddingHeight) + "px",
+    //     left: (offset.left + tarWidth + CONTEXT.panePaddingWidth) + "px"
+    //   }).fadeIn(200);
+    // }
+    // else if (bottomSpace >= CONTEXT.minHeight) {
+    //   pane.css({
+    //
+    //   })
+    // }
 
     pane.css({
-      top: (pos.top + 5) + "px",
-      left: (pos.left + width + 10) + "px"
+      top: (offset.top + CONTEXT.panePaddingHeight) + "px",
+      left: (offset.left + tarWidth + CONTEXT.panePaddingWidth) + "px"
     }).fadeIn(200);
 
   };
