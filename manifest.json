@@ -27,5 +27,9 @@
       "run_at": "document_end",
       "all_frames": true
     }
-  ]
+  ],
+  "icons": {
+    "48": "images/smallLogo1_48_padding.png",
+    "128": "images/smallLogo2_128_padding.png"
+  }
 }

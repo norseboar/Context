@@ -52,11 +52,10 @@
   font-weight: normal;
 }
 .context-logo {
-  font-family: 'Ubuntu', sans-serif;
+  font-family: 'Computer Modern', sans-serif;
+  font-size: 1em;
+  color: #2a2a2a;
   font-weight: bold;
-  font-size: 1.2em;
-  text-transform: lowercase;
-
   /* zero out some values so that host pages can't affect them */
   line-height: normal;
 }
