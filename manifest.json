@@ -2,7 +2,7 @@
   "name": "Context",
   "description": "Extension for providing additional context about any selected term",
 
-  "version": "0.1",
+  "version": "0.1.0",
   "manifest_version": 2,
 
   "content_scripts": [
