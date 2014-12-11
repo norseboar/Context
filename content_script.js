@@ -38,6 +38,7 @@
   var isQueryValid = function(query, element){
     var valid = true;
     valid = valid && !query.isEmpty();
+    valid = valid && query.length <= CONTEXT.maxQueryLength;
     valid = valid && query.split(/\s+/).length <= CONTEXT.maxQueryWords;
     valid = valid && !element.is(":text");
     var close = element.closest("form");

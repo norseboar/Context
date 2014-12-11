@@ -13,6 +13,7 @@ CONTEXT.wikipediaMobileHost = 'en.m.wikipedia.org';
 CONTEXT.wikipediaHost = 'en.wikipedia.org';
 CONTEXT.wikipediaPrefix = 'https://en.m.wikipedia.org/wiki/';
 CONTEXT.maxQueryWords = 6;
+CONTEXT.maxQueryLength = 200;
 (function (){
   s = CONTEXT.strings;
   s.google_api_key = "AIzaSyBTLamb0-7P5lVpI5DWbcVLRd6DEfBQynU";
