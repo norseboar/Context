@@ -71,6 +71,8 @@ CONTEXT.hoverPane = function() {
       hp.width = (docWidth > CONTEXT.maxWidth ? CONTEXT.maxWidth : docWidth);
       hp.height = (bottomSpace > CONTEXT.maxHeight ? CONTEXT.maxHeight :
         bottomSpace);
+      // If there's not even enough space at the bottom, just push it down anyway
+      hp.height = (bottomSpace < CONTEXT.minHeight ? CONTEXT.minHeight : bottomSpace);
       pane.css({
         top: (offset.top + tarHeight + CONTEXT.panePaddingHeight) + "px",
         left: (docWidth - hp.width - CONTEXT.panePaddingWidth) + "px"
