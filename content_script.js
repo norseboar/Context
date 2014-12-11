@@ -15,21 +15,30 @@
       getContext(element, element.text());
     });
 
+    // Handler for user selecting highlighting a term
+    // Set a lock so this only happens once at a time
+    var selectLock = false;
     $('body').mouseup(function () {
+      if(selectLock) {
+        return;
+      }
+      selectLock = true;
+      // Reset the select lock after some time
       setTimeout(function () {
-        var selection = window.getSelection();
-        if(!selection) {
-          return;
-        };
-        var parentElement = $(selection.anchorNode.parentElement);
-        var element = $(selection.focusNode);
-        var query = getFullTextFromSelection(selection);
-        if(!isQueryValid(query, element)) {
-          return;
-        }
-        console.log("searching for " + query);
-        getContext(parentElement, query);
-      }, (400));
+        selectLock = false;
+      }, (CONTEXT.selectLockTimeout));
+      var selection = window.getSelection();
+      if(!selection) {
+        return;
+      };
+      var parentElement = $(selection.anchorNode.parentElement);
+      var element = $(selection.focusNode);
+      var query = getFullTextFromSelection(selection);
+      if(!isQueryValid(query, element)) {
+        return;
+      }
+      console.log("searching for " + query);
+      getContext(parentElement, query);
     });
   };
 
