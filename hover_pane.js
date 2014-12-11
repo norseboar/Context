@@ -18,6 +18,10 @@ CONTEXT.hoverPane = function() {
 
   pane.hide();
 
+  // Create the initial dimensions of the frame (can be changed when placed)
+  hp.width = CONTEXT.maxWidth;
+  hp.height = CONTEXT.maxHeight;
+
   // Set up a handler to dismiss the hover pane if it's clicked out of
   $('body').mousedown(function() {
     if(!pane.is(':hover')) {
@@ -46,37 +50,52 @@ CONTEXT.hoverPane = function() {
     var docWidth = $(window).width();
     var tarWidth = target.outerWidth();
     var tarHeight = target.outerHeight();
-    var topSpace = offset.top - (CONTEXT.panePaddingHeight * 2);
-    var bottomSpace = docHeight - offset.top - tarHeight
+    var topSpace = $(window).scrollTop() + offset.top - (CONTEXT.panePaddingHeight * 2);
+    var bottomSpace = $(window).scrollTop() + docHeight - offset.top - tarHeight - branding.height()
       - (CONTEXT.panePaddingHeight * 2);
     var leftSpace = offset.left - (CONTEXT.panePaddingWidth * 2);
     var rightSpace = docWidth - offset.left - tarWidth
       - CONTEXT.panePaddingWidth * 2;
 
-    // if(rightSpace >= CONTEXT.minWidth){
-    //   pane.css({
-    //     top: (offset.top - CONTEXT.panePaddingHeight) + "px",
-    //     left: (offset.left + tarWidth + CONTEXT.panePaddingWidth) + "px"
-    //   }).fadeIn(200);
-    // }
-    // else if (bottomSpace >= CONTEXT.minHeight) {
-    //   pane.css({
-    //
-    //   })
-    // }
+    if(rightSpace >= CONTEXT.minWidth){
+      hp.width = (rightSpace > CONTEXT.maxHeight ? CONTEXT.maxHeight :
+        rightSpace);
+      pane.css({
+        top: (offset.top - CONTEXT.panePaddingHeight) + "px",
+        left: (offset.left + tarWidth + CONTEXT.panePaddingWidth) + "px"
+      }).fadeIn(200);
+    }
+    else {
+      // It's possible the width of the entire window is smaller than the
+      // default (maybe if this ever moved to mobile?)
+      hp.width = (docWidth > CONTEXT.maxWidth ? CONTEXT.maxWidth : docWidth);
+      hp.height = (bottomSpace > CONTEXT.maxHeight ? CONTEXT.maxHeight :
+        bottomSpace);
+      pane.css({
+        top: (offset.top + tarHeight + CONTEXT.panePaddingHeight) + "px",
+        left: (docWidth - hp.width - CONTEXT.panePaddingWidth) + "px"
+      }).fadeIn(200);
+    }
 
-    pane.css({
-      top: (offset.top + CONTEXT.panePaddingHeight) + "px",
-      left: (offset.left + tarWidth + CONTEXT.panePaddingWidth) + "px"
-    }).fadeIn(200);
+    // pane.css({
+    //   top: (offset.top + CONTEXT.panePaddingHeight) + "px",
+    //   left: (offset.left + tarWidth + CONTEXT.panePaddingWidth) + "px"
+    // }).fadeIn(200);
 
+    // Height is not set now because animation will take place when content
+    // is appended
+    pane.css({ width: hp.width });
+    paneBody.css({ width:hp.width });
   };
 
   // Add content to the hoverPane. This can be done without this method through
   // jQuery selectors, but this method is preferred.
   hp.reset = function(){
     paneBody.empty();
-    paneBody.css({ height: 0, width: 400 })
+    hp.width = CONTEXT.maxWidth;
+    hp.height = CONTEXT.maxHeight;
+    pane.css({ width: hp.width })
+    paneBody.css({ height: 0, width: hp.width })
   };
 
   hp.appendContent = function(content, isText){
@@ -91,9 +110,10 @@ CONTEXT.hoverPane = function() {
 
     // For some reason, a small amount (like 20) needs to be added to
     // height to accommodate the iframe
-    var h = content.height() < CONTEXT.maxHeight ? content.height() : CONTEXT.maxHeight;
+    var h = content.outerHeight() < CONTEXT.maxHeight ?
+      content.outerHeight() : CONTEXT.maxHeight;
     if(h > paneBody.height()){
-      paneBody.animate({ height: h + 20 });
+      paneBody.animate({ height: (h + branding.height())});
     }
 
   };

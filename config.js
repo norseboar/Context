@@ -2,7 +2,8 @@ var CONTEXT = CONTEXT || {};
 
 CONTEXT.freebaseMinimum = 75;
 CONTEXT.strings = {};
-CONTEXT.maxHeight = 500;
+CONTEXT.maxHeight = 400;
+CONTEXT.maxWidth = 400;
 CONTEXT.minWidth = 280;
 CONTEXT.minHeight = 150;
 CONTEXT.panePaddingWidth = 10;

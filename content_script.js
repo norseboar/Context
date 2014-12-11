@@ -48,6 +48,7 @@
   // Functions for retrieving data
   var getContext = function(element, query){
     // Move the hoverPane into place and start a loading animation
+    hp.reset();
     hp.movePane(element);
     // hp.reset();
     // hp.appendContent($('<div class=spinnerContainer><div class="spinner"></div></div>'))
@@ -71,7 +72,7 @@
     var iframe = null;
     if(url){
       iframe = $('<iframe src="' + url +
-      '" width="400" height="' + 400 + '" class="content-frame"></iframe>');
+      '" width="' + hp.width + '" height="' + hp.height + '" class="content-frame"></iframe>');
     }
     return iframe;
   };
@@ -79,7 +80,7 @@
   var getWikipediaContent = function (query) {
     query = query.replace(/\s+/gm, '_');
     return $('<iframe src="' + CONTEXT.wikipediaPrefix + query +
-      '" width="400" height="400"></iframe>');
+      '" width="' + hp.width + '" height="' + hp.height + '"></iframe>');
   }
   var getFreebaseTopic = function(query, element){
     var params = {
@@ -169,12 +170,10 @@
     }
 
     // Fill the content of the pane. It will already be positioned at the start
-    hp.reset();
     hp.appendContent(content, isText);
   };
 
   var showNoContent = function(query){
-    hp.reset();
     hp.appendContent($('<div><p class="error">No results found</p></div>'), true);
   };
 
