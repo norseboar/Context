@@ -11,7 +11,7 @@ CONTEXT.hoverPane = function() {
   // Create a jquery object for the frame
   var pane = $('<div class="hover-pane"></div>');
   var paneBody = $('<div class="pane-body"></div>');
-  var branding = $('<div class="branding"><p>Powered by <span class="context-logo"><sup>[1]</sup>Context</span></p></div>')
+  var branding = $('<div class="context-branding"><p>Powered by <span class="context-logo"><sup>[1]</sup>Context</span></p></div>')
   pane.appendTo('body');
   paneBody.appendTo(pane);
   branding.appendTo(pane);
