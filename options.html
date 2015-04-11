@@ -1,0 +1,25 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="fonts.css">
+    <link rel="stylesheet" href="styles/options.css">
+  </head>
+  <body>
+    <h1>Context options</h1>
+    <hr>
+    <input type="checkbox" id="show-on-select" checked>
+    Automatically show hovercards when text is selected
+    <!-- Triple line breaks probably aren't the best way to do this... -->
+    <br/>
+    <br/>
+    <p>Do not automatically show hovercards for these sites:</p>
+    <div class="block">
+      <select multiple id="blacklist">
+      </select>
+      <button type="button" id="remove-blacklist-entry">Remove selected sites</button>
+    </div>
+    <div class="block">
+      <input type="text" id="new-blacklist-entry-text">
+      <button type="button" id="add-blacklist-entry">Add site</button>
+    </div>
+  </body>
+</html>

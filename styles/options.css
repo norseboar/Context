@@ -1,0 +1,25 @@
+body {
+  margin-top: 2em;
+  margin-left: 6em;
+}
+.options {
+  font-family: 'Open Sans', sans-serif;
+}
+
+.disabled-element {
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+#blacklist {
+  width: 300;
+}
+
+#new-blacklist-entry-text {
+  width: 300;
+}
+
+.block {
+  margin-bottom: .5em;
+  margin-top: .5em;
+}
