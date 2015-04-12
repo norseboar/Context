@@ -2,25 +2,29 @@
   <head>
     <link rel="stylesheet" href="fonts.css">
     <link rel="stylesheet" href="styles/options.css">
-    <script src="scripts/options.js"></script>
+    <script src="scripts/options.js" defer></script>
   </head>
   <body>
     <h1>Context options</h1>
     <hr>
     <input type="checkbox" id="autoshow" checked>
-    Automatically show hovercards when text is selected
-    <!-- Triple line breaks probably aren't the best way to do this... -->
+    <label for="autoshow">Automatically show hovercards when text is selected</label>
     <br/>
     <br/>
-    <p>Do not automatically show hovercards for these sites:</p>
-    <div class="block">
-      <select multiple id="blacklist">
-      </select>
-      <button type="button" id="remove">Remove site</button>
-    </div>
-    <div class="block">
-      <input type="text" id="new-text">
-      <button type="button" id="add">Add site</button>
+    <div id="blacklist-group">
+      <p>Do not automatically show hovercards for these sites:</p>
+      <div class="block">
+        <select multiple id="blacklist">
+        </select>
+        <button type="button" id="remove">Remove site</button>
+        <p id="sync-warning">This list is stored locally, and will not sync across your
+          devices</p>
+      </div>
+      <div class="block">
+        <input type="text" id="new-text">
+        <button type="button" id="add">Add site</button>
+        <p id="error"></p>
+      </div>
     </div>
   </body>
 </html>
