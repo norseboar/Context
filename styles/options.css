@@ -1,6 +1,6 @@
 body {
   margin-top: 2em;
-  margin-left: 6em;
+  margin-left: 2em;
 }
 .options {
   font-family: 'Open Sans', sans-serif;
@@ -12,14 +12,18 @@ body {
 }
 
 #blacklist {
-  width: 300;
+  width: 250;
+  margin-bottom: .2em;
 }
 
-#new-blacklist-entry-text {
-  width: 300;
+#new-text {
+  width: 250;
+}
+
+#remove {
+  vertical-align: top;
 }
 
 .block {
   margin-bottom: .5em;
-  margin-top: .5em;
 }

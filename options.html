@@ -2,11 +2,12 @@
   <head>
     <link rel="stylesheet" href="fonts.css">
     <link rel="stylesheet" href="styles/options.css">
+    <script src="scripts/options.js"></script>
   </head>
   <body>
     <h1>Context options</h1>
     <hr>
-    <input type="checkbox" id="show-on-select" checked>
+    <input type="checkbox" id="autoshow" checked>
     Automatically show hovercards when text is selected
     <!-- Triple line breaks probably aren't the best way to do this... -->
     <br/>
@@ -15,11 +16,11 @@
     <div class="block">
       <select multiple id="blacklist">
       </select>
-      <button type="button" id="remove-blacklist-entry">Remove selected sites</button>
+      <button type="button" id="remove">Remove site</button>
     </div>
     <div class="block">
-      <input type="text" id="new-blacklist-entry-text">
-      <button type="button" id="add-blacklist-entry">Add site</button>
+      <input type="text" id="new-text">
+      <button type="button" id="add">Add site</button>
     </div>
   </body>
 </html>
