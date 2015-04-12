@@ -11,9 +11,19 @@ body {
   opacity: 0.4;
 }
 
+.block {
+  margin-bottom: .5em;
+}
+
+#error {
+  margin-top: 0em;
+  padding-top: 0em;
+  font-style: italic;
+  color: red;
+}
+
 #blacklist {
   width: 250;
-  margin-bottom: .2em;
 }
 
 #new-text {
@@ -24,6 +34,10 @@ body {
   vertical-align: top;
 }
 
-.block {
-  margin-bottom: .5em;
+#sync-warning {
+  margin-top: 0em;
+  padding-top: 0em;
+  font-size: .8em;
+  font-style: italic;
+  color: gray;
 }

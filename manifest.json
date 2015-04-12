@@ -11,6 +11,10 @@
     "chrome_style": true
   },
 
+  "permissions": [
+    "storage"
+  ],
+  
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
