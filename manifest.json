@@ -32,8 +32,9 @@
         "utilities.js",
         "config.js",
         "cardstacks.js",
-        "hover_pane.js",
-        "content_script.js"
+        "hover-pane.js",
+        "content-retriever.js",
+        "content-script.js"
       ],
       "run_at": "document_end"
     },
