@@ -48,11 +48,16 @@ var addBlacklistEntry = function() {
 
   var textElem = document.getElementById('new-text');
   var url = textElem.value;
-  // url will be stored without protocol or query string b/c the extension
-  // will not discriminate based on those
+  // url will be stored without protocol, fragment identifiers, or query string
+  // b/c the extension will not discriminate based on those. Trailing slashes
+  // will also be omitted
   url = url.replace('http://', '');
   url = url.replace('https://', '');
   url = url.split('?', 1)[0];
+  url = url.split('#', 1)[0];
+  if(url[url.length - 1] == '/') {
+    url = url.slice(0, url.length - 1);
+  }
   if(!re_weburl.test(url)){
     errorElem.innerHTML = "Invalid URL format"
   }
@@ -62,11 +67,11 @@ var addBlacklistEntry = function() {
     document.getElementById('blacklist').add(option);
     textElem.value = '';
     chrome.storage.local.get({
-      'contextBlacklist': []
+      'blacklist': []
     }, function(results){
-      var blacklist = results.contextBlacklist;
+      var blacklist = results.blacklist;
       blacklist.push(url);
-      chrome.storage.local.set({contextBlacklist: blacklist});
+      chrome.storage.local.set({blacklist: blacklist});
     });
   }
 };
@@ -84,9 +89,9 @@ var removeBlacklistEntry = function() {
     }
   }
   chrome.storage.local.get({
-    'contextBlacklist': []
+    'blacklist': []
   }, function(results) {
-    var blacklist = results.contextBlacklist;
+    var blacklist = results.blacklist;
     var listElem = document.getElementById('blacklist');
     // Iterate through the array in reverse so we can delete items without
     // screwing up the indexes
@@ -94,7 +99,7 @@ var removeBlacklistEntry = function() {
       blacklist.splice(toRemove[j], 1);
       listElem.remove(toRemove[j]);
     }
-    chrome.storage.local.set({contextBlacklist: blacklist});
+    chrome.storage.local.set({blacklist: blacklist});
   });
 };
 
@@ -113,9 +118,9 @@ var restoreOptions = function() {
     }
   });
   chrome.storage.local.get({
-    contextBlacklist: []
+    blacklist: []
   }, function(results){
-    var blacklist = results.contextBlacklist;
+    var blacklist = results.blacklist;
     var listElem = document.getElementById('blacklist');
     for (var i = 0; i < blacklist.length; i++) {
       var option = document.createElement('option');

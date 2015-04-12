@@ -25,9 +25,18 @@ chrome.runtime.onMessage.addListener(
 
     if(request.query === 'autoshow') {
       chrome.storage.sync.get({
-        'autoshow': true
+        autoshow: true
       }, function(results){
         sendResponse({autoshow: results.autoshow});
+      });
+      return true;
+    }
+
+    if(request.query === 'blacklist') {
+      chrome.storage.local.get({
+        blacklist: []
+      }, function(results) {
+        sendResponse({blacklist: results.blacklist});
       });
       return true;
     }

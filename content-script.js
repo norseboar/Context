@@ -22,22 +22,35 @@
     // first, check if auto show is enabled
     chrome.runtime.sendMessage({query: 'autoshow'}, function(response) {
       if(response.autoshow) {
-        $('body').mouseup(function () {
-          setTimeout(function () {
-            var selection = window.getSelection();
-            if(!selection) {
-              return;
-            };
-            var parentElement = $(selection.anchorNode.parentElement);
-            var element = $(selection.focusNode);
-            var query = getFullTextFromSelection(selection);
-            if(!isQueryValid(query, element)) {
-              return;
+        // next, check if the current site is on the autoshow blacklist
+        var url = window.location.hostname + window.location.pathname;
+        var blacklisted = false;
+        chrome.runtime.sendMessage({query: 'blacklist'}, function(response) {
+          for(var i = 0; i < response.blacklist.length; i++) {
+            if(response.blacklist[i] === url) {
+              blacklisted = true;
+              break;
             }
-            console.log("searching for " + query);
-            context.contentRetriever.insertDataIntoPane(query, hoverPane,
-                parentElement);
-          }, (400));
+          }
+          if(!blacklisted){
+            $('body').mouseup(function () {
+              setTimeout(function () {
+                var selection = window.getSelection();
+                if(!selection) {
+                  return;
+                };
+                var parentElement = $(selection.anchorNode.parentElement);
+                var element = $(selection.focusNode);
+                var query = getFullTextFromSelection(selection);
+                if(!isQueryValid(query, element)) {
+                  return;
+                }
+                console.log("searching for " + query);
+                context.contentRetriever.insertDataIntoPane(query, hoverPane,
+                    parentElement);
+              }, (400));
+            });
+          }
         });
       }
     });
