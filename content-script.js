@@ -16,23 +16,30 @@
           element);
     });
 
-    // whenever text is selected, query that text
-    $('body').mouseup(function () {
-      setTimeout(function () {
-        var selection = window.getSelection();
-        if(!selection) {
-          return;
-        };
-        var parentElement = $(selection.anchorNode.parentElement);
-        var element = $(selection.focusNode);
-        var query = getFullTextFromSelection(selection);
-        if(!isQueryValid(query, element)) {
-          return;
-        }
-        console.log("searching for " + query);
-        context.contentRetriever.insertDataIntoPane(query, hoverPane,
-            parentElement);
-      }, (400));
+    // automatic hoverpane logic (when a user selects text, automatically
+    // show pane)
+
+    // first, check if auto show is enabled
+    chrome.runtime.sendMessage({query: 'autoshow'}, function(response) {
+      if(response.autoshow) {
+        $('body').mouseup(function () {
+          setTimeout(function () {
+            var selection = window.getSelection();
+            if(!selection) {
+              return;
+            };
+            var parentElement = $(selection.anchorNode.parentElement);
+            var element = $(selection.focusNode);
+            var query = getFullTextFromSelection(selection);
+            if(!isQueryValid(query, element)) {
+              return;
+            }
+            console.log("searching for " + query);
+            context.contentRetriever.insertDataIntoPane(query, hoverPane,
+                parentElement);
+          }, (400));
+        });
+      }
     });
   };
 
