@@ -6,7 +6,7 @@
   "manifest_version": 2,
 
   "background": {
-    "scripts": ["event-page.js"],
+    "scripts": ["scripts/event-page.js"],
     "persistent": false
   },
 
@@ -25,23 +25,24 @@
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "css": [ "fonts.css", "styles.css"],
+      "css": [ "styles/fonts.css", "styles/styles.css"],
       "js": [
-        "jquery-2.1.1.min.js",
-        "jquery-highlight.js",
-        "spinners.min.js",
-        "utilities.js",
-        "config.js",
-        "cardstacks.js",
-        "hover-pane.js",
-        "content-retriever.js",
-        "content-script.js"
+        "scripts/jquery-2.1.1.min.js",
+        "scripts/jquery-highlight.js",
+        "scripts/spinners.min.js",
+        "scripts/utilities.js",
+        "scripts/config.js",
+        "scripts/cardstacks.js",
+        "scripts/hover-pane.js",
+        "scripts/content-retriever.js",
+        "scripts/content-script.js"
       ],
       "run_at": "document_end"
     },
     {
       "matches": ["*://en.m.wikipedia.org/*"],
-      "js": [ "jquery-2.1.1.min.js", "mobile-wikipedia-links.js" ],
+      "js": [ "scripts/jquery-2.1.1.min.js",
+          "scripts/mobile-wikipedia-links.js" ],
       "run_at": "document_end",
       "all_frames": true
     }
