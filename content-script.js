@@ -7,18 +7,22 @@
   var init = function(){
     hoverPane = new context.HoverPane();
     var stacks = context.cardstacks.getKeywords();
-    // Wrap all cardstack-related terms in highlights that will pop cardstacks
-    $('p').highlight(context.cardstacks.getKeywords(), { element: 'span',
-      className: 'cardstack-highlight'});
-    $('.cardstack-highlight').click(function(event){
-      var element = $(event.currentTarget);
-      context.contentRetriever.insertDataIntoPane(element.text(), hoverPane,
-          element);
-    });
 
-    // automatic hoverpane logic (when a user selects text, automatically
-    // show pane)
+    // Listen for messages from context menu
+    chrome.runtime.onMessage.addListener(
+      function(request, sender, sendResponse) {
+        if(sender.id !== chrome.runtime.id) {
+          return;
+        }
 
+        if(request.action === 'showPane') {
+          showPaneFromSelection(hoverPane);
+        }
+      }
+    );
+
+    // automatic hoverpane logic
+    // (when a user selects text, automatically show pane)
     // first, check if auto show is enabled
     chrome.runtime.sendMessage({query: 'autoshow'}, function(response) {
       if(response.autoshow) {
@@ -33,22 +37,18 @@
             }
           }
           if(!blacklisted){
+            // Wrap all Vox-related terms in highlights that will pop cardstacks
+            $('p').highlight(context.cardstacks.getKeywords(), { element: 'span',
+              className: 'cardstack-highlight'});
+            $('.cardstack-highlight').click(function(event){
+              var element = $(event.currentTarget);
+              context.contentRetriever.insertDataIntoPane(element.text(),
+                  hoverPane, element);
+            });
+
+            // For non-Vox, wait for a user to select
             $('body').mouseup(function () {
-              setTimeout(function () {
-                var selection = window.getSelection();
-                if(!selection) {
-                  return;
-                };
-                var parentElement = $(selection.anchorNode.parentElement);
-                var element = $(selection.focusNode);
-                var query = getFullTextFromSelection(selection);
-                if(!isQueryValid(query, element)) {
-                  return;
-                }
-                console.log("searching for " + query);
-                context.contentRetriever.insertDataIntoPane(query, hoverPane,
-                    parentElement);
-              }, (400));
+              setTimeout(showPaneFromSelection(hoverPane), (400));
             });
           }
         });
@@ -56,6 +56,21 @@
     });
   };
 
+  var showPaneFromSelection = function(hoverPane) {
+    var selection = window.getSelection();
+    if(!selection) {
+      return;
+    };
+    var parentElement = $(selection.anchorNode.parentElement);
+    var element = $(selection.focusNode);
+    var query = getFullTextFromSelection(selection);
+    if(!isQueryValid(query, element)) {
+      return;
+    }
+    console.log("searching for " + query);
+    context.contentRetriever.insertDataIntoPane(query, hoverPane,
+        parentElement);
+  }
   // Decides if a query is valid to search for
   // Includes making sure a query isn't empty, isn't too large, and isn't in a text box
   var isQueryValid = function(query, element){

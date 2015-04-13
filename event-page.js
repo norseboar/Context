@@ -1,16 +1,17 @@
 "use strict"
 
 // Show hoverpane for the selected text or text of the hyperlink
-var clickHandler = function(info) {
+var clickHandler = function(info, tab) {
   if (info.menuItemId !== 'showContext'){
     return;
   }
-
+  // Send a message to content script, which will surface actual hoverpane
+  chrome.tabs.sendMessage(tab.id, {action: 'showPane'});
 }
 
 chrome.contextMenus.create({
   id: 'showContext',
-  title: 'Show more Context',
+  title: 'Show more info',
   contexts: ['selection', 'link']
 });
 
