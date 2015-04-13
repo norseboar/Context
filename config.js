@@ -1,24 +1,16 @@
-var CONTEXT = CONTEXT || {};
+var context = context || {};
 
-CONTEXT.freebaseMinimum = 75;
-CONTEXT.strings = {};
-CONTEXT.maxHeight = 400;
-CONTEXT.maxWidth = 400;
-CONTEXT.minWidth = 280;
-CONTEXT.minHeight = 150;
-CONTEXT.panePaddingWidth = 10;
-CONTEXT.panePaddingHeight = 5;
+context.MAX_HEIGHT = 400;
+context.MAX_WIDTH = 400;
+context.MIN_HEIGHT = 150;
+context.MIN_WIDTH = 280;
+context.PANE_PADDING_WIDTH = 10;
+context.PANE_PADDING_HEIGHT = 5;
 
-CONTEXT.wikipediaMobileHost = 'en.m.wikipedia.org';
-CONTEXT.wikipediaHost = 'en.wikipedia.org';
-CONTEXT.wikipediaPrefix = 'https://en.m.wikipedia.org/wiki/';
-CONTEXT.maxQueryWords = 6;
-CONTEXT.maxQueryLength = 200;
-(function (){
-  s = CONTEXT.strings;
-  s.google_api_key = "AIzaSyBTLamb0-7P5lVpI5DWbcVLRd6DEfBQynU";
-  s.wikipedia_search_url = "http://www.wikipedia.org/search-redirect.php?family=wikipedia&language=en&search=";
-  s.freebase_search_url = "https://www.googleapis.com/freebase/v1/search?key=" + s.google_api_key;
-  s.freebase_topic_url = "https://www.googleapis.com/freebase/v1/topic";
-  s.freebase_image_url = "https://usercontent.googleapis.com/freebase/v1/image";
-})();
+context.MAX_QUERY_WORDS = 6;
+context.MAX_QUERY_LENGTH = 200;
+
+context.WIKIPEDIA_MOBILE_HOST = 'en.m.wikipedia.org';
+context.WIKIPEDIA_HOST = 'en.wikipedia.org';
+context.WIKIPEDIA_PREFIX = 'https://en.m.wikipedia.org/wiki/';
+context.WIKIPEDIA_SEARCH_URL = "http://www.wikipedia.org/search-redirect.php?family=wikipedia&language=en&search=";

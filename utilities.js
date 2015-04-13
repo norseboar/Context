@@ -1,3 +1,4 @@
+"use strict"
 // This file is for utilities added to javascript generally, usually by adding functions to prototypes
 // E.g. adding an isEmpty method to string
 
