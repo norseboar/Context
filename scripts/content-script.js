@@ -106,10 +106,11 @@
     }
 
     var earlyIndex, lateIndex = 0;
-    var earlyText, lateText = "";
+    var earlyText, lateText = '';
     var anchorIsFirst = true;
 
-    var anchorPosition = selection.anchorNode.compareDocumentPosition(selection.focusNode);
+    var anchorPosition = selection.anchorNode.compareDocumentPosition(
+        selection.focusNode);
     if(anchorPosition) {
       anchorIsFirst = (Node.DOCUMENT_POSITION_FOLLOWING & anchorPosition) ||
         (Node.DOCUMENT_POSITION_CONTAINED_BY & anchorPosition);
@@ -136,14 +137,16 @@
     // If the start of the selection leads with whitespace or punctuation, don't
     // search farther forward
     if(text[0].removePunctuation().trim()){
-      while(earlyText && (c = earlyText.charAt(earlyIndex--).removePunctuation().trim())){
+      while(earlyText && (c = earlyText.charAt(earlyIndex--)
+          .removePunctuation().trim())){
         text = c.concat(text);
       }
     }
 
     // Same for the end of the selection trailing with whitespace or punctuation
     if(text[(text.length -1)].removePunctuation().trim()){
-      while(lateText && (c = lateText.charAt(lateIndex++).removePunctuation().trim())){
+      while(lateText && (c = lateText.charAt(lateIndex++)
+          .removePunctuation().trim())){
         text = text.concat(c);
       }
     }
