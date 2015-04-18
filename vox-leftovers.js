@@ -8,3 +8,13 @@ $('.cardstack-highlight').click(function(event){
   context.contentRetriever.insertDataIntoPane(element.text(),
       hoverPane, element);
 });
+
+
+// for getcontenturl:
+var url = getVoxContent(query);
+if (url) {
+  return url;
+}
+else {
+  return getWikipediaContent(query);
+}

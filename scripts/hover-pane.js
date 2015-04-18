@@ -8,15 +8,17 @@ var context = context || {};
 // call so jQuery can be passed in
 context.HoverPane = (function($) {
   // return the constructor
-  return function() {
+  // constructor takes optional branding jQuery object, to set the branding
+  // (the gray space under the hoverpane
+  return function(brandingContent) {
     // Create a jquery object for the pane
     var pane = $('<div class="hover-pane"></div>');
     var paneBody = $('<div class="pane-body"></div>');
-    var branding = $('<div class="context-branding"><p>Powered by' +
-        '<spanclass="context-logo"><sup>[1]</sup>Context</span></p></div>')
+    var branding = $('<div class="pane-branding"></div>');
     pane.appendTo('body');
     paneBody.appendTo(pane);
     branding.appendTo(pane);
+    brandingContent.appendTo(branding);
 
     pane.hide();
 
@@ -41,6 +43,11 @@ context.HoverPane = (function($) {
       else {
         return getNearestBlockElement(target.parent());
       }
+    };
+
+    // Hide pane
+    this.hide = function() {
+      pane.fadeOut(200);
     };
 
     // Position the frame relative to the target (not including

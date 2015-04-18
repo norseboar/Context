@@ -5,7 +5,22 @@
   // whenever text is selected
   var hoverPane;
   var init = function(){
-    hoverPane = new context.HoverPane();
+
+    // Create one hoverpane to be re-used whenever this extension needs it
+    var branding = $('<div style="position:relative; height:1.5em">' +
+        '<p id="branding-attribution">Powered by ' +
+        '<span class="context-logo"><sup>[1]</sup>Context</span></p>' +
+        '<p id="branding-blacklist-link"><a id="add-to-blacklist" href="#">' +
+        'Don\'t show context for this page</a></p></div>');
+    hoverPane = new context.HoverPane(branding);
+    // Add the current page to the blacklist, if user requests
+    $('#add-to-blacklist').click(function() {
+      var url = window.location.hostname + window.location.pathname;
+      $('body').off('mouseup.showPane');
+      hoverPane.hide();
+      chrome.runtime.sendMessage({action: 'addToBlacklist', url: url});
+      return false;
+    });
 
     // Listen for messages from context menu
     chrome.runtime.onMessage.addListener(
@@ -36,7 +51,7 @@
           }
           if(!blacklisted){
             // Wait for a user to select, then show Wikipedia content
-            $('body').mouseup(function () {
+            $('body').on('mouseup.showPane', function () {
               setTimeout(showPaneFromSelection(hoverPane), (400));
             });
           }
