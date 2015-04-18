@@ -5,26 +5,20 @@
 var context = context || {};
 
 context.contentRetriever = (function($) {
+  // content functions for individual sources
   var getVoxContent = function (query) {
     return context.cardstacks.getUrl(query);
   };
-
   var getWikipediaContent = function (query) {
     // Wikipedia pages replace spaces in titles with underscores
     query = query.replace(/\s+/gm, '_');
     return context.WIKIPEDIA_PREFIX + query;
   };
 
-  var getContextUrl = function (query) {
+  // For now, only used source is Wikipedia. This will grow, though.
+  var getContentUrl = function (query) {
     query = query.toLowerCase();
-    // If the term is associated with a cardstack, show the cardstack
-    var url = getVoxContent(query);
-    if (url) {
-      return url;
-    }
-    else {
-      return getWikipediaContent(query);
-    }
+    return getWikipediaContent(query);
   };
 
   return {
@@ -35,7 +29,7 @@ context.contentRetriever = (function($) {
     insertDataIntoPane: function(query, hp, jqElement) {
       hp.reset();
       hp.move(jqElement);
-      var url = getContextUrl(query);
+      var url = getContentUrl(query);
       var iframe = $('<iframe src="' + url + '" width="' + hp.width +
           '" height="' + hp.height + '"></iframe>');
       hp.appendContent(iframe, false);

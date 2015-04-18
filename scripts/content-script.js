@@ -6,7 +6,6 @@
   var hoverPane;
   var init = function(){
     hoverPane = new context.HoverPane();
-    var stacks = context.cardstacks.getKeywords();
 
     // Listen for messages from context menu
     chrome.runtime.onMessage.addListener(
@@ -14,7 +13,6 @@
         if(sender.id !== chrome.runtime.id) {
           return;
         }
-
         if(request.action === 'showPane') {
           showPaneFromSelection(hoverPane);
         }
@@ -37,16 +35,7 @@
             }
           }
           if(!blacklisted){
-            // Wrap all Vox-related terms in highlights that will pop cardstacks
-            $('p').highlight(context.cardstacks.getKeywords(), { element: 'span',
-              className: 'cardstack-highlight'});
-            $('.cardstack-highlight').click(function(event){
-              var element = $(event.currentTarget);
-              context.contentRetriever.insertDataIntoPane(element.text(),
-                  hoverPane, element);
-            });
-
-            // For non-Vox, wait for a user to select
+            // Wait for a user to select, then show Wikipedia content
             $('body').mouseup(function () {
               setTimeout(showPaneFromSelection(hoverPane), (400));
             });
@@ -56,6 +45,7 @@
     });
   };
 
+  // Reveals a hoverpane based on text currently selected
   var showPaneFromSelection = function(hoverPane) {
     var selection = window.getSelection();
     if(!selection) {
@@ -71,6 +61,7 @@
     context.contentRetriever.insertDataIntoPane(query, hoverPane,
         parentElement);
   }
+
   // Decides if a query is valid to search for
   // Includes making sure a query isn't empty, isn't too large, and isn't in a text box
   var isQueryValid = function(query, element){
@@ -85,9 +76,9 @@
   };
 
   // Strips out any punctuation that should end a word (whitespace, comma,
-  // colon, semicolon, period, question mark, exclamation mark)
+  // colon, semicolon, period, question mark, exclamation mark, paretheses)
   String.prototype.removePunctuation = function(){
-    return this.replace(/[,:;.?!]/, '');
+    return this.replace(/[,:;.?!()]/, '');
   };
 
   String.prototype.condenseWhitespace = function(){
