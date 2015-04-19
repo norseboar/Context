@@ -51,7 +51,7 @@ chrome.runtime.onMessage.addListener(
       });
       return true;
     }
-
+    
     if(request.action === 'addToBlacklist') {
       if(!request.url) {
         return false;
