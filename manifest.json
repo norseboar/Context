@@ -34,6 +34,7 @@
         "scripts/config.js",
         "scripts/cardstacks.js",
         "scripts/hover-pane.js",
+        "scripts/tutorial.js",
         "scripts/content-retriever.js",
         "scripts/content-script.js"
       ],
@@ -46,6 +47,9 @@
       "run_at": "document_end",
       "all_frames": true
     }
+  ],
+  "web_accessible_resources": [
+    "templates/*"
   ],
   "icons": {
     "48": "images/smallLogo1_48_padding.png",

@@ -8,15 +8,17 @@ var context = context || {};
 // call so jQuery can be passed in
 context.HoverPane = (function($) {
   // return the constructor
-  return function() {
+  // constructor takes optional branding jQuery object, to set the branding
+  // (the gray space under the hoverpane
+  return function(brandingContent) {
     // Create a jquery object for the pane
     var pane = $('<div class="hover-pane"></div>');
     var paneBody = $('<div class="pane-body"></div>');
-    var branding = $('<div class="context-branding"><p>Powered by' +
-        '<spanclass="context-logo"><sup>[1]</sup>Context</span></p></div>')
+    var branding = $('<div class="pane-branding"></div>');
     pane.appendTo('body');
     paneBody.appendTo(pane);
     branding.appendTo(pane);
+    brandingContent.appendTo(branding);
 
     pane.hide();
 
@@ -41,6 +43,11 @@ context.HoverPane = (function($) {
       else {
         return getNearestBlockElement(target.parent());
       }
+    };
+
+    // Hide pane
+    this.hide = function() {
+      pane.fadeOut(200);
     };
 
     // Position the frame relative to the target (not including
@@ -92,6 +99,22 @@ context.HoverPane = (function($) {
       paneBody.css({ width: this.width });
     };
 
+    // Places the hoverpane directly (no intelligence about where it should be moved)
+    // Must pass in starting x and y coordinates, desired width, and desired height
+    this.placeCustom = function(xPos, yPos, width, height) {
+      this.width = width;
+      this.height = height;
+      pane.css({
+        left: xPos + 'px',
+        top: yPos + 'px',
+      }).fadeIn(200);
+
+      // Height is not set now because animation will take place when content
+      // is appended
+      pane.css({ width: this.width });
+      paneBody.css({ width: this.width });
+    };
+
     // Empty the pane, and move its size back to default
     this.reset = function(){
       paneBody.empty();
@@ -103,12 +126,13 @@ context.HoverPane = (function($) {
 
     // Add content to the hoverPane. This can be done without this method through
     // jQuery selectors, but this method is preferred.
-    // content is a jQuery element
+    // content must be a jQuery element
     this.appendContent = function(content){
       content.appendTo(paneBody);
 
       var h = content.outerHeight() < context.MAX_HEIGHT ?
         content.outerHeight() : context.MAX_HEIGHT;
+      this.height = h;
       if(h > paneBody.height()){
         paneBody.animate({ height: (h + branding.height())});
       }
