@@ -49,6 +49,8 @@
     }
   ],
   "web_accessible_resources": [
+    "scripts/*",
+    "styles/*",
     "templates/*"
   ],
   "icons": {
