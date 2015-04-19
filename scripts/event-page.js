@@ -43,7 +43,6 @@ chrome.runtime.onMessage.addListener(
       return true;
     }
 
-<<<<<<< HEAD
     if(request.query === 'shouldRunTutorial') {
       chrome.storage.local.get({
         shouldRunTutorial: true
@@ -52,9 +51,7 @@ chrome.runtime.onMessage.addListener(
       });
       return true;
     }
-    
-=======
->>>>>>> origin/dev
+
     if(request.action === 'addToBlacklist') {
       if(!request.url) {
         return false;

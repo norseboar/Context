@@ -5,7 +5,6 @@
   // whenever text is selected
   var hoverPane;
   var init = function(){
-<<<<<<< HEAD
     // Set up tutorial
     chrome.runtime.sendMessage({query: 'shouldRunTutorial'},
         function(response){
@@ -13,8 +12,6 @@
             context.tutorial.runTutorial();
           }
     });
-=======
->>>>>>> origin/dev
 
     // Create one hoverpane to be re-used whenever this extension needs it
     var branding = $('<div style="position:relative; height:1.5em">' +
