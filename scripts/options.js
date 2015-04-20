@@ -15,6 +15,14 @@ var re_weburl = new RegExp(
   "$", "i"
 );
 
+// Save user's preference for showing the tutorial
+var toggleTutorial = function() {
+  var checked = document.getElementById('tutorial').checked;
+  chrome.storage.sync.set({
+    shouldRunTutorial: checked
+  });
+};
+
 // Save user's preference for autoshow
 // Enable/disable blacklist as a result
 var toggleAutoshow = function() {
@@ -105,8 +113,10 @@ var removeBlacklistEntry = function() {
 
 var restoreOptions = function() {
   chrome.storage.sync.get({
-    autoshow: true
+    autoshow: true,
+    shouldRunTutorial: true
   }, function(results) {
+    document.getElementById('tutorial').checked = results.shouldRunTutorial;
     document.getElementById('autoshow').checked = results.autoshow;
     if (!results.autoshow) {
       var elem = document.getElementById('blacklist-group');
@@ -131,6 +141,7 @@ var restoreOptions = function() {
 };
 
 document.addEventListener('DOMContentLoaded', restoreOptions);
+document.getElementById('tutorial').addEventListener('change', toggleTutorial);
 document.getElementById('autoshow').addEventListener('change', toggleAutoshow);
 document.getElementById('add').addEventListener('click', addBlacklistEntry);
 document.getElementById('remove').addEventListener('click',

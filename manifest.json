@@ -6,15 +6,11 @@
   "manifest_version": 2,
 
   "background": {
-    "scripts": ["scripts/event-page.js"],
-    "persistent": false
+    "scripts": ["scripts/background-page.js"],
+    "persistent": true
   },
 
   "options_page": "options.html",
-  "options_ui": {
-    "page": "options.html",
-    "chrome_style": true
-  },
 
   "permissions": [
     "storage",
@@ -25,7 +21,12 @@
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "css": [ "styles/fonts.css", "styles/styles.css"],
+      "css": [
+        "styles/bootstrap.min.css",
+        "styles/bootstrap-theme.min.css",
+        "styles/fonts.css",
+        "styles/hovercard.css",
+        "styles/tutorial.css"],
       "js": [
         "scripts/jquery-2.1.1.min.js",
         "scripts/jquery-highlight.js",

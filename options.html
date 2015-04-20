@@ -4,13 +4,14 @@
     <link rel="stylesheet" href="styles/options.css">
     <script src="scripts/options.js" defer></script>
   </head>
-  <body>
+  <body class="options">
     <h1>Context options</h1>
     <hr>
+    <input type="checkbox" id="tutorial" checked>
+    <label for="tutorial">Show tutorial when Chrome starts</label>
+    <br/>
     <input type="checkbox" id="autoshow" checked>
     <label for="autoshow">Automatically show hovercards when text is selected</label>
-    <br/>
-    <br/>
     <div id="blacklist-group">
       <p>Do not automatically show hovercards for these sites:</p>
       <div class="block">

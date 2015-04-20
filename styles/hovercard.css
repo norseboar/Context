@@ -59,10 +59,7 @@
 
 .pane-content {
     font-family: 'Open Sans', sans-serif;
-    margin-top: 20px;
-    margin-right: 20px;
-    margin-bottom: 25px;
-    margin-left: 20px;
+    margin: 0px;
 }
 
 .pane-content img {
@@ -109,15 +106,4 @@
 .cardstack-highlight:hover {
   text-decoration:underline;
   cursor: pointer;
-}
-
-.spinnerContainer {
-  position:relative;
-  top:0;
-  height: 150px;
-  width: 100%;
-}
-
-.spinner {
-  position:absolute;
 }

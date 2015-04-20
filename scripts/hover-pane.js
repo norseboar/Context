@@ -100,19 +100,28 @@ context.HoverPane = (function($) {
     };
 
     // Places the hoverpane directly (no intelligence about where it should be moved)
-    // Must pass in starting x and y coordinates, desired width, and desired height
-    this.placeCustom = function(xPos, yPos, width, height) {
+    // Must pass in starting x and y coordinates, and desired width (height is always
+    // determined by content)
+    // Effect is a string that defines certain effects for how the movement will occur
+    this.moveCustom = function(xPos, yPos, width, effect) {
       this.width = width;
-      this.height = height;
-      pane.css({
-        left: xPos + 'px',
-        top: yPos + 'px',
-      }).fadeIn(200);
 
-      // Height is not set now because animation will take place when content
-      // is appended
-      pane.css({ width: this.width });
-      paneBody.css({ width: this.width });
+      if(effect === 'animate') {
+        pane.animate({
+          width: width,
+          left: xPos + 'px',
+          top: yPos + 'px'
+        })
+      }
+      else {
+        pane.css({
+          left: xPos + 'px',
+          top: yPos + 'px',
+        }).fadeIn(200);
+
+        pane.css({ width: this.width });
+        paneBody.css({ width: this.width });
+      }
     };
 
     // Empty the pane, and move its size back to default
@@ -127,15 +136,28 @@ context.HoverPane = (function($) {
     // Add content to the hoverPane. This can be done without this method through
     // jQuery selectors, but this method is preferred.
     // content must be a jQuery element
-    this.appendContent = function(content){
+    // maxHeight is an optional parameter for what the max height of this pane can be
+    this.appendContent = function(content, maxHeight){
       content.appendTo(paneBody);
 
-      var h = content.outerHeight() < context.MAX_HEIGHT ?
-        content.outerHeight() : context.MAX_HEIGHT;
+      maxHeight = maxHeight || context.MAX_HEIGHT
+      var h = content.outerHeight() < maxHeight ?
+        content.outerHeight() : maxHeight;
       this.height = h;
       if(h > paneBody.height()){
         paneBody.animate({ height: (h + branding.height())});
       }
     };
+
+    this.empty = function() {
+      paneBody.empty();
+    };
+
+    this.getZ = function() {
+      return pane.css('z-index');
+    }
+    this.setZ = function(z) {
+      pane.css('z-index', z);
+    }
   };
 })(jQuery);

@@ -14,3 +14,6 @@ context.WIKIPEDIA_MOBILE_HOST = 'en.m.wikipedia.org';
 context.WIKIPEDIA_HOST = 'en.wikipedia.org';
 context.WIKIPEDIA_PREFIX = 'https://en.m.wikipedia.org/wiki/';
 context.WIKIPEDIA_SEARCH_URL = "http://www.wikipedia.org/search-redirect.php?family=wikipedia&language=en&search=";
+
+context.TUTORIAL_WIDTH = context.MAX_WIDTH;
+context.TUTORIAL_HEIGHT = 500;
