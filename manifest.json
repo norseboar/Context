@@ -22,11 +22,8 @@
     {
       "matches": ["<all_urls>"],
       "css": [
-        "styles/bootstrap.min.css",
-        "styles/bootstrap-theme.min.css",
         "styles/fonts.css",
-        "styles/hovercard.css",
-        "styles/tutorial.css"],
+        "styles/hovercard.css"],
       "js": [
         "scripts/jquery-2.1.1.min.js",
         "scripts/jquery-highlight.js",
@@ -35,7 +32,7 @@
         "scripts/config.js",
         "scripts/cardstacks.js",
         "scripts/hover-pane.js",
-        "scripts/tutorial.js",
+        "scripts/run-tutorial.js",
         "scripts/content-retriever.js",
         "scripts/content-script.js"
       ],

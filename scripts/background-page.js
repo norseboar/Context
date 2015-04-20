@@ -23,19 +23,33 @@
   chrome.contextMenus.onClicked.addListener(clickHandler);
 
   // Send message to all tabs, killing tutorial if present
-  var closeTutorialInAllTabs = function() {
+  var closeTutorialInAllTabsExcept = function(exceptions) {
     chrome.tabs.query({}, function(tabs) {
       tabs.forEach(function(tab) {
+        for(var i = 0; i < exceptions.length; i++) {
+          if(exception[i] === tab.id) {
+            return;
+          }
+        }
         chrome.tabs.sendMessage(tab.id, {action: 'killTutorial'});
       });
     });
   };
 
   // listen for messages from extension to inform it about settings
+  // TODO: reimplement this with switch statement
   chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
+
       if(sender.id !== chrome.runtime.id) {
         return;
+      }
+
+      // content scripts cannot access what tab they are running in
+      // they must send request to background to check
+      if(request.query === 'current-tab') {
+        sendResponse({tabId: sender.tab.id});
+        return true;
       }
 
       // get whether or not hovercards should be automatically shown whenever
@@ -77,20 +91,6 @@
         }
       }
 
-      // User has closed the tutorial, but did not permanently disable it
-      if(request.action === 'tempDisableTutorial') {
-        hasTutorialRun = true;
-        closeTutorialInAllTabs();
-      };
-
-      // Tutorial should be disabled (either it was completed, or user asked to
-      // not see it)
-      if(request.action === 'permanentDisableTutorial') {
-        hasTutorialRun = true;
-        closeTutorialInAllTabs();
-        chrome.storage.sync.set({shouldRunTutorial: false});
-      }
-
       // User wants to blacklist a site from popups showing whenever text is
       // selected
       if(request.action === 'addToBlacklist') {
@@ -115,6 +115,28 @@
           chrome.storage.local.set({blacklist: blacklist});
         });
       }
+
+      // ACTIONS FROM TUTORIAL IFRAME =================================================
+      // All tutorial pages are shown in iframes to insulate them from host CSS
+      // However, this means they do not have direct control over the hoverpane that
+      // contains them (nor can they communicate directly with that page)
+      if(request.action === 'tutorial-intro-never') {
+        hasTutorialRun = true;
+        closeTutorialInAllTabsExcept([]);
+        chrome.storage.sync.set({shouldRunTutorial: false});
+        chrome.tabs.sendMessage(sender.tab.id, {action: 'tutorial-close'});
+      }
+      if(request.action === 'tutorial-intro-not-now') {
+        hasTutorialRun = true;
+        closeTutorialInAllTabsExcept([]);
+        chrome.tabs.sendMessage(sender.tab.id, {action: 'tutorial-close'});
+      }
+      if(request.action === 'tutorial-intro-step1') {
+        hasTutorialRun = true;
+        closeTutorialInAllTabsExcept([sender.tab.id]);
+        chrome.tabs.sendMessage(sender.tab.id, {action: 'tutorial-step1'});
+      }
+
     }
   );
 })();

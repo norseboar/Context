@@ -5,27 +5,9 @@
 // how context can be used
 var context = context || {};
 
-context.tutorial = (function($) {
+context.runTutorial = (function($) {
   // we can't return the funtion directly, because we need jQuery
   return function() {
-    // UTILITIES ==============================================================
-
-    // Loads content from a URL, and adds it to hoverpane
-    // Accepts a URL string, and a function to run afterwards (to initialize)
-    // handlers and such
-    var loadContentFromUrl = function(url, runAfter){
-      var req = new XMLHttpRequest();
-      req.open('GET',
-          chrome.extension.getURL(url), true);
-      req.onreadystatechange = function() {
-        if(req.readyState === 4 && req.status === 200) {
-          tutorialPane.appendContent($(req.responseText),
-              context.TUTORIAL_HEIGHT);
-          runAfter();
-        }
-      }
-      req.send();
-    }
 
     // TUTORIAL PROGRESS ======================================================
     // These functions are not automatically run, rather they are called as
@@ -38,40 +20,17 @@ context.tutorial = (function($) {
 
       // Empty pane and load in new content
       tutorialPane.empty();
-      loadContentFromUrl('/templates/tutorial-1.html', step1Handlers);
+      var iframe = $('<iframe src="' +
+          chrome.extension.getURL('/templates/tutorial1.html') +
+          '" width="' + context.TUTORIAL_WIDTH + '" height="' +
+          context.TUTORIAL_HEIGHT + '"></iframe>');
+      tutorialPane.appendContent(iframe, context.TUTORIAL_HEIGHT);
     };
 
     var runStep2 = function() {
       //TODO: step 2
     };
 
-    // HANDLERS ===============================================================
-    var introHandlers = function() {
-      $('#context-never').click(function() {
-        tutorialPane.hide();
-        chrome.runtime.sendMessage({action: 'permanentDisableTutorial'});
-      });
-
-      $('#context-not-now').click(function() {
-        console.log('not now clicked');
-        tutorialPane.hide();
-        chrome.runtime.sendMessage({action: 'tempDisableTutorial'});
-      });
-
-      $('#context-step1').click(function() {
-        inTutorial = true;
-        // Disable this in other tabs anyhow, since the user's already
-        // engaged
-        chrome.runtime.sendMessage({action: 'tempDisableTutorial'});
-        runStep1();
-      });
-    };
-
-    var step1Handlers = function() {
-      $('#context-step2').click(function() {
-        runStep2();
-      });
-    };
 
     // INITIALIZE AND DISPLAY PANE ============================================
     // If the user is in the middle of the tutorial, some things behave
@@ -94,7 +53,11 @@ context.tutorial = (function($) {
     // it when the user is experimenting
     tutorialPane.setZ(tutorialPane.getZ() - 1);
     tutorialPane.moveCustom(xPos, yPos, width, 0);
-    loadContentFromUrl('/templates/tutorial-intro.html', introHandlers);
+    var iframe = $('<iframe src="' +
+        chrome.extension.getURL('/templates/tutorial-intro.html') +
+        '" width="' + context.TUTORIAL_INTRO_WIDTH + '" height="' +
+        context.TUTORIAL_INTRO_HEIGHT + '"></iframe>');
+    tutorialPane.appendContent(iframe);
 
     // SET UP LISTENERS =======================================================
     chrome.runtime.onMessage.addListener(
@@ -112,6 +75,14 @@ context.tutorial = (function($) {
           if(!inTutorial) {
             tutorialPane.hide();
           }
+        }
+
+        // Listeners for messages coming from the tutorial iframes
+        if(request.action === 'tutorial-close') {
+          tutorialPane.hide();
+        }
+        if(request.action === 'tutorial-step1') {
+          runStep1();
         }
       }
     );

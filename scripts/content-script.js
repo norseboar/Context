@@ -8,7 +8,7 @@
     // Set up tutorial
     chrome.runtime.sendMessage({query: 'shouldRunTutorial'},
         function(response){
-          context.tutorial();
+          context.runTutorial();
           // if(response.shouldRunTutorial){
           //   context.tutorial();
           // }
