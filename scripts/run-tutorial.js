@@ -8,7 +8,6 @@ var context = context || {};
 context.runTutorial = (function($) {
   // we can't return the funtion directly, because we need jQuery
   return function() {
-
     // TUTORIAL PROGRESS ======================================================
     // These functions are not automatically run, rather they are called as
     // the tutorial progresses
@@ -25,6 +24,9 @@ context.runTutorial = (function($) {
           '" width="' + context.TUTORIAL_WIDTH + '" height="' +
           context.TUTORIAL_HEIGHT + '"></iframe>');
       tutorialPane.appendContent(iframe, context.TUTORIAL_HEIGHT);
+      iframe.on('mouseup.showPane', function () {
+        console.log('gotclick');
+      });
     };
 
     var runStep2 = function() {
@@ -59,6 +61,13 @@ context.runTutorial = (function($) {
         context.TUTORIAL_INTRO_HEIGHT + '"></iframe>');
     tutorialPane.appendContent(iframe);
 
+    // SET UP DEMO PANE =======================================================
+    // Rather than interfering with the default hoverpane that the main content
+    // script manages, create a 'demo pane' that will be hovered next to the
+    // tutorial pane
+    var demoPane = new context.HoverPane(branding);
+
+
     // SET UP LISTENERS =======================================================
     chrome.runtime.onMessage.addListener(
       function(request, sender, sendResponse) {
@@ -83,6 +92,13 @@ context.runTutorial = (function($) {
         }
         if(request.action === 'tutorial-step1') {
           runStep1();
+        }
+        if(request.action === 'tutorial-create-hoverpane') {
+          context.contentRetriever.insertDataIntoPane(request.query,
+              demoPane, tutorialPane.pane);
+        }
+        if(request.action === 'tutorial-close-demo') {
+          demoPane.hide();
         }
       }
     );

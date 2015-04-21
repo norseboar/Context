@@ -1,5 +1,6 @@
 "use strict";
 (function ($) {
+  var utilities = context.utilities();
 
   // Creates context pane, and creates a handler to update the context pane
   // whenever text is selected
@@ -8,7 +9,9 @@
     // Set up tutorial
     chrome.runtime.sendMessage({query: 'shouldRunTutorial'},
         function(response){
-          context.runTutorial();
+          if(context.runTutorial){
+            context.runTutorial();
+          }
           // if(response.shouldRunTutorial){
           //   context.tutorial();
           // }
@@ -60,6 +63,8 @@
           if(!blacklisted){
             // Wait for a user to select, then show Wikipedia content
             $('body').on('mouseup.showPane', function () {
+              // A timeout is needed so that only one event is fired if a user
+              // double-clicks to select text
               setTimeout(showPaneFromSelection(hoverPane), (400));
             });
           }
@@ -71,12 +76,12 @@
   // Reveals a hoverpane based on text currently selected
   var showPaneFromSelection = function(hoverPane) {
     var selection = window.getSelection();
-    if(!selection) {
+    if(!selection || !selection.anchorNode) {
       return;
-    };
+    }
     var parentElement = $(selection.anchorNode.parentElement);
     var element = $(selection.focusNode);
-    var query = getFullTextFromSelection(selection);
+    var query = utilities.getFullTextFromSelection(selection);
     if(!isQueryValid(query, element)) {
       return;
     }
@@ -96,76 +101,6 @@
     var close = element.closest("form");
     valid = valid && element.closest("form").length === 0;
     return valid;
-  };
-
-  // Strips out any punctuation that should end a word (whitespace, comma,
-  // colon, semicolon, period, question mark, exclamation mark, paretheses)
-  String.prototype.removePunctuation = function(){
-    return this.replace(/[,:;.?!()]/, '');
-  };
-
-  String.prototype.condenseWhitespace = function(){
-    return this.replace(/\s+/gm, ' ');
-  }
-
-  // Returns any words that are partially selected in addition to the full
-  // text of a selection
-  var getFullTextFromSelection = function (selection){
-    if(!selection){
-      return '';
-    }
-    var text = selection.toString();
-    if(!text){
-      return '';
-    }
-
-    var earlyIndex, lateIndex = 0;
-    var earlyText, lateText = '';
-    var anchorIsFirst = true;
-
-    var anchorPosition = selection.anchorNode.compareDocumentPosition(
-        selection.focusNode);
-    if(anchorPosition) {
-      anchorIsFirst = (Node.DOCUMENT_POSITION_FOLLOWING & anchorPosition) ||
-        (Node.DOCUMENT_POSITION_CONTAINED_BY & anchorPosition);
-    }
-    else {
-      anchorIsFirst = selection.anchorOffset <= selection.focusOffset;
-    }
-    if(anchorIsFirst){
-      earlyIndex = selection.anchorOffset - 1;
-      earlyText = selection.anchorNode.nodeValue;
-      lateIndex = selection.focusOffset;
-      lateText = selection.focusNode.nodeValue;
-    }
-    else {
-      earlyIndex = selection.focusOffset - 1;
-      earlyText = selection.focusNode.nodeValue;
-      lateIndex = selection.anchorOffset;
-      lateText = selection.anchorNode.nodeValue;
-    }
-
-
-    var c = '';
-
-    // If the start of the selection leads with whitespace or punctuation, don't
-    // search farther forward
-    if(text[0].removePunctuation().trim()){
-      while(earlyText && (c = earlyText.charAt(earlyIndex--)
-          .removePunctuation().trim())){
-        text = c.concat(text);
-      }
-    }
-
-    // Same for the end of the selection trailing with whitespace or punctuation
-    if(text[(text.length -1)].removePunctuation().trim()){
-      while(lateText && (c = lateText.charAt(lateIndex++)
-          .removePunctuation().trim())){
-        text = text.concat(c);
-      }
-    }
-
-    return text.removePunctuation().condenseWhitespace().trim();
   };
 
   init();

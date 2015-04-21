@@ -136,7 +136,14 @@
         closeTutorialInAllTabsExcept([sender.tab.id]);
         chrome.tabs.sendMessage(sender.tab.id, {action: 'tutorial-step1'});
       }
-
+      if(request.action === 'tutorial-create-hoverpane') {
+        chrome.tabs.sendMessage(sender.tab.id,
+            {action: 'tutorial-create-hoverpane', query: request.query});
+      }
+      if(request.action === 'tutorial-close-demo') {
+        chrome.tabs.sendMessage(sender.tab.id,
+            {action: 'tutorial-close-demo'});
+      }
     }
   );
 })();

@@ -16,6 +16,6 @@ context.WIKIPEDIA_PREFIX = 'https://en.m.wikipedia.org/wiki/';
 context.WIKIPEDIA_SEARCH_URL = "http://www.wikipedia.org/search-redirect.php?family=wikipedia&language=en&search=";
 
 context.TUTORIAL_WIDTH = context.MAX_WIDTH;
-context.TUTORIAL_HEIGHT = 429;
+context.TUTORIAL_HEIGHT = 600;
 context.TUTORIAL_INTRO_WIDTH = context.MAX_WIDTH;
 context.TUTORIAL_INTRO_HEIGHT = 300;

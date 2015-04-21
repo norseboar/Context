@@ -22,6 +22,7 @@ context.HoverPane = (function($) {
 
     pane.hide();
 
+    this.pane = pane;
     // Create the initial dimensions of the frame (can be changed when placed)
     this.width = context.MAX_WIDTH;
     this.height = context.MAX_HEIGHT;
