@@ -47,10 +47,10 @@ context.runTutorial = (function($) {
     var xPos = window_width - (context.PANE_PADDING_WIDTH*2) - width;
     var yPos = context.PANE_PADDING_HEIGHT*3;
 
-    var branding = $('<div style="position:relative; height:1.5em">' +
-        '<p>Powered by <span class="context-logo"><sup>[1]</sup>Context</span>' +
-        '</p></div>');
-    var tutorialPane = new context.HoverPane(branding);
+    var brandingString = '<div style="position:relative; height:1.5em">' +
+        '<p>Powered by <span class="context-logo"><sup>[1]</sup>' +
+        'Context</span></p></div>';
+    var tutorialPane = new context.HoverPane($(brandingString));
     // tutorial pane must have Z dialed back so that other hovercards overlap
     // it when the user is experimenting
     tutorialPane.setZ(tutorialPane.getZ() - 1);
@@ -65,7 +65,7 @@ context.runTutorial = (function($) {
     // Rather than interfering with the default hoverpane that the main content
     // script manages, create a 'demo pane' that will be hovered next to the
     // tutorial pane
-    var demoPane = new context.HoverPane(branding);
+    var demoPane = new context.HoverPane($(brandingString));
 
 
     // SET UP LISTENERS =======================================================
