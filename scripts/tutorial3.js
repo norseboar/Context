@@ -28,8 +28,9 @@
     }
   });
 
-  // Register the 'next' button to go to the next page
-  $('#context-step2').click(function() {
-    chrome.runtime.sendMessage({action: 'tutorial-step2'});
+  $('#options-link').attr('href',
+      chrome.extension.getURL('options.html'));
+  $('#context-tutorial-end').click(function() {
+    chrome.runtime.sendMessage({action: 'tutorial-end'});
   });
 })(jQuery);

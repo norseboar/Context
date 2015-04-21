@@ -11,6 +11,6 @@
   });
 
   document.getElementById('step1').addEventListener('click', function() {
-    chrome.runtime.sendMessage({action: 'tutorial-intro-step1'});
+    chrome.runtime.sendMessage({action: 'tutorial-step1'});
   });
 })();

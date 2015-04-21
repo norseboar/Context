@@ -1,4 +1,5 @@
 (function() {
+  console.log('starting');
   // Track if the tutorial has already been run when this browser opened
   // (by default, tutorial should run once every time the browser is opened,
   // unless the user disables it or runs through it)
@@ -27,7 +28,7 @@
     chrome.tabs.query({}, function(tabs) {
       tabs.forEach(function(tab) {
         for(var i = 0; i < exceptions.length; i++) {
-          if(exception[i] === tab.id) {
+          if(exceptions[i] === tab.id) {
             return;
           }
         }
@@ -75,6 +76,7 @@
 
       // get whether the tutorial should be run
       if(request.query === 'shouldRunTutorial') {
+        console.log('shouldRun?');
         // If the tutorial has already run this session, no need to check the
         // settings
         if(hasTutorialRun) {
@@ -131,10 +133,20 @@
         closeTutorialInAllTabsExcept([]);
         chrome.tabs.sendMessage(sender.tab.id, {action: 'tutorial-close'});
       }
-      if(request.action === 'tutorial-intro-step1') {
+      if(request.action === 'tutorial-step1') {
         hasTutorialRun = true;
         closeTutorialInAllTabsExcept([sender.tab.id]);
         chrome.tabs.sendMessage(sender.tab.id, {action: 'tutorial-step1'});
+      }
+      if(request.action === 'tutorial-step2') {
+        chrome.tabs.sendMessage(sender.tab.id, {action: 'tutorial-step2'});
+      }
+      if(request.action === 'tutorial-step3') {
+        chrome.tabs.sendMessage(sender.tab.id, {action: 'tutorial-step3'});
+      }
+      if(request.action === 'tutorial-end') {
+        chrome.storage.sync.set({shouldRunTutorial: false});
+        chrome.tabs.sendMessage(sender.tab.id, {action: 'tutorial-end'});
       }
       if(request.action === 'tutorial-create-hoverpane') {
         chrome.tabs.sendMessage(sender.tab.id,

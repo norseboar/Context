@@ -9,12 +9,9 @@
     // Set up tutorial
     chrome.runtime.sendMessage({query: 'shouldRunTutorial'},
         function(response){
-          if(context.runTutorial){
+          if(response.shouldRunTutorial){
             context.runTutorial();
           }
-          // if(response.shouldRunTutorial){
-          //   context.tutorial();
-          // }
     });
 
     // Create one hoverpane to be re-used whenever this extension needs it

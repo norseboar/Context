@@ -24,13 +24,24 @@ context.runTutorial = (function($) {
           '" width="' + context.TUTORIAL_WIDTH + '" height="' +
           context.TUTORIAL_HEIGHT + '"></iframe>');
       tutorialPane.appendContent(iframe, context.TUTORIAL_HEIGHT);
-      iframe.on('mouseup.showPane', function () {
-        console.log('gotclick');
-      });
     };
 
     var runStep2 = function() {
-      //TODO: step 2
+      tutorialPane.empty();
+      var iframe = $('<iframe src="' +
+          chrome.extension.getURL('/templates/tutorial2.html') +
+          '" width="' + context.TUTORIAL_WIDTH + '" height="' +
+          380 + 'px"></iframe>');
+      tutorialPane.appendContent(iframe, context.TUTORIAL_HEIGHT);
+    };
+
+    var runStep3 = function() {
+      tutorialPane.empty();
+      var iframe = $('<iframe src="' +
+          chrome.extension.getURL('/templates/tutorial3.html') +
+          '" width="' + context.TUTORIAL_WIDTH + '" height="' +
+          context.TUTORIAL_HEIGHT + '"></iframe>');
+      tutorialPane.appendContent(iframe, context.TUTORIAL_HEIGHT);
     };
 
 
@@ -92,6 +103,15 @@ context.runTutorial = (function($) {
         }
         if(request.action === 'tutorial-step1') {
           runStep1();
+        }
+        if(request.action === 'tutorial-step2') {
+          runStep2();
+        }
+        if(request.action === 'tutorial-step3') {
+          runStep3();
+        }
+        if(request.action === 'tutorial-end') {
+          tutorialPane.hide();
         }
         if(request.action === 'tutorial-create-hoverpane') {
           context.contentRetriever.insertDataIntoPane(request.query,
