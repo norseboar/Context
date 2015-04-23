@@ -9,6 +9,25 @@ context.runTutorial = (function($) {
   // we can't return the funtion directly, because we need jQuery
   return function() {
     var autoshowEnabled = true;
+    //
+    // // Get 'realWidth' and 'realHeight' dimensions -- the width of the full
+    // // window, correcting for body and margin paddings
+    // // must take the margin & padding of body into account (a rare few websites
+    // // throw the placement off with it)
+    // var body = $('body');
+    // var marginLeft = body.css('margin-left');
+    // marginLeft = Length.toPx(document.body, marginLeft);
+    // var paddingLeft = body.css('padding-left');
+    // paddingLeft = Length.toPx(document.body, paddingLeft);
+    //
+    //
+    // var marginTop = body.css('margin-top');
+    // marginTop = Length.toPx(document.body, marginTop);
+    // var paddingTop = body.css('padding-top');
+    // paddingTop = Length.toPx(document.body, paddingTop;
+    //
+    // var realWidth = $(window).width() - paddingLeft + marginLeft;
+    // var realHeight =
 
     // TUTORIAL PROGRESS ======================================================
     // These functions are not automatically run, rather they are called as
@@ -56,23 +75,19 @@ context.runTutorial = (function($) {
     var width = window_width/3 > context.TUTORIAL_WIDTH ?
         context.TUTORIAL_WIDTH :
         window_width/3;
-    // must take the margin & padding of body into account (a rare few websites
-    // throw the placement off with it)
-    var body = $('body');
-    var margin = body.css('margin-left');
-    margin = Length.toPx(document.body, margin);
-    var padding = body.css('padding-left');
-    padding = Length.toPx(document.body, padding);
 
-    var xPos = window_width - (context.PANE_PADDING_WIDTH*2) - width
-        - padding + margin;
+    var xPos = window_width - (context.PANE_PADDING_WIDTH*2) - width;
     var yPos = context.PANE_PADDING_HEIGHT*3;
 
     var tutorialBranding = $('<div style="position:relative; height:1.5em">' +
         '<p id="branding-attribution">Powered by ' +
         '<span class="context-logo"><sup>[1]</sup>Context</span></p>');
 
-    var tutorialPane = new context.HoverPane(true, tutorialBranding);
+    var tutorialPane = new context.HoverPane({
+      sticky: true,
+      brandingContent: tutorialBranding,
+      fixed: true
+    });
     // tutorial pane must have Z dialed back so that other hovercards overlap
     // it when the user is experimenting
     tutorialPane.setZ(tutorialPane.getZ() - 1);
@@ -92,7 +107,9 @@ context.runTutorial = (function($) {
         '<span class="context-logo"><sup>[1]</sup>Context</span></p>' +
         '<p id="branding-blacklist-link"><a id="add-to-blacklist" href="#">' +
         'Don\'t show context for this page</a></p></div>');
-    var demoPane = new context.HoverPane(false, demoBranding);
+    var demoPane = new context.HoverPane({
+      brandingContent: demoBranding
+    });
 
     // "Don't show context for this page" button must function differently for
     // tutorial, since it's not domain-bound

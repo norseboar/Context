@@ -21,7 +21,9 @@
         '<span class="context-logo"><sup>[1]</sup>Context</span></p>' +
         '<p id="branding-blacklist-link"><a id="add-to-blacklist" href="#">' +
         'Don\'t show context for this page</a></p></div>');
-    hoverPane = new context.HoverPane(false, branding);
+    hoverPane = new context.HoverPane({
+      brandingContent: branding
+    });
     // Add the current page to the blacklist, if user requests
     $('#add-to-blacklist').click(function() {
       var url = window.location.hostname + window.location.pathname;
