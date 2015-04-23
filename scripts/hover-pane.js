@@ -8,21 +8,19 @@ var context = context || {};
 // call so jQuery can be passed in
 context.HoverPane = (function($) {
   // return the constructor
-  // constructor takes:
-  // sticky -- boolean for whether or not hoverpane should stick around if user
-  // clicks outside of it (if set to 'true', the content must provide the user
-  // with some way to close it)
-  // branding -- optional branding jQuery object, to set the branding
-  // (the gray space under the hoverpane)
-  return function(sticky, brandingContent) {
+
+  return function(options) {
     // Create a jquery object for the pane
     var pane = $('<div class="hover-pane"></div>');
+    if(options.fixed) {
+      pane.css('position', 'fixed');
+    }
     var paneBody = $('<div class="pane-body"></div>');
     var branding = $('<div class="pane-branding"></div>');
     pane.appendTo('body');
     paneBody.appendTo(pane);
     branding.appendTo(pane);
-    brandingContent.appendTo(branding);
+    options.brandingContent.appendTo(branding);
 
     pane.hide();
 
@@ -32,7 +30,7 @@ context.HoverPane = (function($) {
     this.height = context.MAX_HEIGHT;
 
     // Set up a handler to dismiss the hover pane if it's clicked out of
-    if(!sticky) {
+    if(!options.sticky) {
       $('body').mousedown(function() {
         if(!pane.is(':hover')) {
           pane.fadeOut(200);
