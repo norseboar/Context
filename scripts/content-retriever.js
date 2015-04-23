@@ -11,8 +11,8 @@ context.contentRetriever = (function($) {
   };
   var getWikipediaContent = function (query) {
     // Wikipedia pages replace spaces in titles with underscores
-    query = query.replace(/\s+/gm, '_');
-    return context.WIKIPEDIA_PREFIX + query;
+    query = query.replace(/\s+/gm, '+');
+    return context.WIKIPEDIA_SEARCH_URL + query;
   };
 
   // For now, only used source is Wikipedia. This will grow, though.
