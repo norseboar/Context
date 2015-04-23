@@ -5,23 +5,20 @@
   // unless the user disables it or runs through it)
   var hasTutorialRun = false;
 
-  // Show hoverpane for the selected text or text of the hyperlink
-  var clickHandler = function(info, tab) {
+  // Register a context menu
+  chrome.contextMenus.create({
+    id: 'showContext',
+    title: 'Tell me more...',
+    contexts: ['selection', 'link']
+  });
+
+  chrome.contextMenus.onClicked.addListener(function(info, tab) {
     if (info.menuItemId !== 'showContext'){
       return;
     }
     // Send a message to content script, which will surface actual hoverpane
     chrome.tabs.sendMessage(tab.id, {action: 'showPane'});
-  }
-
-  // Register a context menu
-  chrome.contextMenus.create({
-    id: 'showContext',
-    title: 'Show more info',
-    contexts: ['selection', 'link']
   });
-
-  chrome.contextMenus.onClicked.addListener(clickHandler);
 
   // Send message to all tabs, killing tutorial if present
   var closeTutorialInAllTabsExcept = function(exceptions) {

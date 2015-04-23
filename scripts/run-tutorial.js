@@ -48,7 +48,6 @@ context.runTutorial = (function($) {
     // INITIALIZE AND DISPLAY PANE ============================================
     // If the user is in the middle of the tutorial, some things behave
     // differently
-    var inTutorial = false;
 
     // first, get the appropriate location for tutorial popup
     var window_width = $(window).width();
@@ -92,9 +91,7 @@ context.runTutorial = (function($) {
         // quick sequence, the tutorials on all pages but the one the user is actively using should
         // be killed as quickly as possible)
         if(request.action === 'killTutorial') {
-          if(!inTutorial) {
-            tutorialPane.hide();
-          }
+          tutorialPane.hide();
         }
 
         // Listeners for messages coming from the tutorial iframes
