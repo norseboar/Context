@@ -9,25 +9,6 @@ context.runTutorial = (function($) {
   // we can't return the funtion directly, because we need jQuery
   return function() {
     var autoshowEnabled = true;
-    //
-    // // Get 'realWidth' and 'realHeight' dimensions -- the width of the full
-    // // window, correcting for body and margin paddings
-    // // must take the margin & padding of body into account (a rare few websites
-    // // throw the placement off with it)
-    // var body = $('body');
-    // var marginLeft = body.css('margin-left');
-    // marginLeft = Length.toPx(document.body, marginLeft);
-    // var paddingLeft = body.css('padding-left');
-    // paddingLeft = Length.toPx(document.body, paddingLeft);
-    //
-    //
-    // var marginTop = body.css('margin-top');
-    // marginTop = Length.toPx(document.body, marginTop);
-    // var paddingTop = body.css('padding-top');
-    // paddingTop = Length.toPx(document.body, paddingTop;
-    //
-    // var realWidth = $(window).width() - paddingLeft + marginLeft;
-    // var realHeight =
 
     // TUTORIAL PROGRESS ======================================================
     // These functions are not automatically run, rather they are called as

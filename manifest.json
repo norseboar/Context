@@ -48,6 +48,7 @@
   "web_accessible_resources": [
     "scripts/*",
     "styles/*",
+    "fonts/*",
     "templates/*"
   ],
   "icons": {

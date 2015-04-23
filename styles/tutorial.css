@@ -9,6 +9,24 @@ html {
   margin-left: 20px;
 }
 
+.tutorial p {
+  float: left;
+  width: 325px;
+}
+
+.tutorial button {
+  margin-top: 15px;
+}
 .next-button {
   float: right;
+}
+
+.header {
+  height: 15px;
+}
+
+#exit-button {
+  float: right;
+  clear: both;
+  cursor: pointer;
 }

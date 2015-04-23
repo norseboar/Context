@@ -4,6 +4,9 @@
 (function($) {
   var utilities = context.utilities();
 
+  document.getElementById('exit-button').addEventListener('click', function() {
+    chrome.runtime.sendMessage({action: 'tutorial-exit'});
+  });
   // Mirrors function from primary content script to show a hoverpane based
   // on a selection. Cannot be the same function, because this one requires
   // message passing

@@ -141,6 +141,10 @@
       if(request.action === 'tutorial-step3') {
         chrome.tabs.sendMessage(sender.tab.id, {action: 'tutorial-step3'});
       }
+      if(request.action === 'tutorial-exit') {
+        chrome.tabs.sendMessage(sender.tab.id, {action: 'tutorial-close'});
+      }
+
       if(request.action === 'tutorial-end') {
         chrome.storage.sync.set({shouldRunTutorial: false});
         chrome.tabs.sendMessage(sender.tab.id, {action: 'tutorial-end'});
