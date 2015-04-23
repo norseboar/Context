@@ -8,9 +8,13 @@ var context = context || {};
 // call so jQuery can be passed in
 context.HoverPane = (function($) {
   // return the constructor
-  // constructor takes optional branding jQuery object, to set the branding
-  // (the gray space under the hoverpane
-  return function(brandingContent) {
+  // constructor takes:
+  // sticky -- boolean for whether or not hoverpane should stick around if user
+  // clicks outside of it (if set to 'true', the content must provide the user
+  // with some way to close it)
+  // branding -- optional branding jQuery object, to set the branding
+  // (the gray space under the hoverpane)
+  return function(sticky, brandingContent) {
     // Create a jquery object for the pane
     var pane = $('<div class="hover-pane"></div>');
     var paneBody = $('<div class="pane-body"></div>');
@@ -28,11 +32,13 @@ context.HoverPane = (function($) {
     this.height = context.MAX_HEIGHT;
 
     // Set up a handler to dismiss the hover pane if it's clicked out of
-    $('body').mousedown(function() {
-      if(!pane.is(':hover')) {
-        pane.fadeOut(200);
-      }
-    });
+    if(!sticky) {
+      $('body').mousedown(function() {
+        if(!pane.is(':hover')) {
+          pane.fadeOut(200);
+        }
+      });
+    }
 
     // Gets a block element that's as close as possible to the target element
     // (if the target is already a block, it will be returned as-is)

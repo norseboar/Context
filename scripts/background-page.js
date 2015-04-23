@@ -147,7 +147,8 @@
       }
       if(request.action === 'tutorial-create-hoverpane') {
         chrome.tabs.sendMessage(sender.tab.id,
-            {action: 'tutorial-create-hoverpane', query: request.query});
+            {action: 'tutorial-create-hoverpane', query: request.query,
+                autoshow: request.autoshow });
       }
       if(request.action === 'tutorial-close-demo') {
         chrome.tabs.sendMessage(sender.tab.id,

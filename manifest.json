@@ -26,8 +26,7 @@
         "styles/hovercard.css"],
       "js": [
         "scripts/jquery-2.1.1.min.js",
-        "scripts/jquery-highlight.js",
-        "scripts/spinners.min.js",
+        "scripts/Length.min.js",
         "scripts/utilities.js",
         "scripts/config.js",
         "scripts/cardstacks.js",

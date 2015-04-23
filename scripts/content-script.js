@@ -7,12 +7,13 @@
   var hoverPane;
   var init = function(){
     // Set up tutorial
-    chrome.runtime.sendMessage({query: 'shouldRunTutorial'},
-        function(response){
-          if(response.shouldRunTutorial){
-            context.runTutorial();
-          }
-    });
+    context.runTutorial();
+    // chrome.runtime.sendMessage({query: 'shouldRunTutorial'},
+    //     function(response){
+    //       if(response.shouldRunTutorial){
+    //         context.runTutorial();
+    //       }
+    // });
 
     // Create one hoverpane to be re-used whenever this extension needs it
     var branding = $('<div style="position:relative; height:1.5em">' +
@@ -20,7 +21,7 @@
         '<span class="context-logo"><sup>[1]</sup>Context</span></p>' +
         '<p id="branding-blacklist-link"><a id="add-to-blacklist" href="#">' +
         'Don\'t show context for this page</a></p></div>');
-    hoverPane = new context.HoverPane(branding);
+    hoverPane = new context.HoverPane(false, branding);
     // Add the current page to the blacklist, if user requests
     $('#add-to-blacklist').click(function() {
       var url = window.location.hostname + window.location.pathname;
@@ -37,7 +38,7 @@
           return;
         }
         if(request.action === 'showPane') {
-          showPaneFromSelection(hoverPane);
+          showPaneFromSelection();
         }
       }
     );
@@ -62,7 +63,7 @@
             $('body').on('mouseup.showPane', function () {
               // A timeout is needed so that only one event is fired if a user
               // double-clicks to select text
-              setTimeout(showPaneFromSelection(hoverPane), (400));
+              setTimeout(showPaneFromSelection(), (400));
             });
           }
         });
@@ -71,7 +72,7 @@
   };
 
   // Reveals a hoverpane based on text currently selected
-  var showPaneFromSelection = function(hoverPane) {
+  var showPaneFromSelection = function() {
     var selection = window.getSelection();
     if(!selection || !selection.anchorNode) {
       return;

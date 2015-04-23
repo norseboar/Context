@@ -8,6 +8,8 @@ var context = context || {};
 context.runTutorial = (function($) {
   // we can't return the funtion directly, because we need jQuery
   return function() {
+    var autoshowEnabled = true;
+
     // TUTORIAL PROGRESS ======================================================
     // These functions are not automatically run, rather they are called as
     // the tutorial progresses
@@ -54,13 +56,23 @@ context.runTutorial = (function($) {
     var width = window_width/3 > context.TUTORIAL_WIDTH ?
         context.TUTORIAL_WIDTH :
         window_width/3;
-    var xPos = window_width - (context.PANE_PADDING_WIDTH*2) - width;
+    // must take the margin & padding of body into account (a rare few websites
+    // throw the placement off with it)
+    var body = $('body');
+    var margin = body.css('margin-left');
+    margin = Length.toPx(document.body, margin);
+    var padding = body.css('padding-left');
+    padding = Length.toPx(document.body, padding);
+
+    var xPos = window_width - (context.PANE_PADDING_WIDTH*2) - width
+        - padding + margin;
     var yPos = context.PANE_PADDING_HEIGHT*3;
 
-    var brandingString = '<div style="position:relative; height:1.5em">' +
-        '<p>Powered by <span class="context-logo"><sup>[1]</sup>' +
-        'Context</span></p></div>';
-    var tutorialPane = new context.HoverPane($(brandingString));
+    var tutorialBranding = $('<div style="position:relative; height:1.5em">' +
+        '<p id="branding-attribution">Powered by ' +
+        '<span class="context-logo"><sup>[1]</sup>Context</span></p>');
+
+    var tutorialPane = new context.HoverPane(true, tutorialBranding);
     // tutorial pane must have Z dialed back so that other hovercards overlap
     // it when the user is experimenting
     tutorialPane.setZ(tutorialPane.getZ() - 1);
@@ -75,8 +87,19 @@ context.runTutorial = (function($) {
     // Rather than interfering with the default hoverpane that the main content
     // script manages, create a 'demo pane' that will be hovered next to the
     // tutorial pane
-    var demoPane = new context.HoverPane($(brandingString));
+    var demoBranding = $('<div style="position:relative; height:1.5em">' +
+        '<p id="branding-attribution">Powered by ' +
+        '<span class="context-logo"><sup>[1]</sup>Context</span></p>' +
+        '<p id="branding-blacklist-link"><a id="add-to-blacklist" href="#">' +
+        'Don\'t show context for this page</a></p></div>');
+    var demoPane = new context.HoverPane(false, demoBranding);
 
+    // "Don't show context for this page" button must function differently for
+    // tutorial, since it's not domain-bound
+    $('#add-to-blacklist').click(function() {
+      autoshowEnabled = false;
+      demoPane.hide();
+    });
 
     // SET UP LISTENERS =======================================================
     chrome.runtime.onMessage.addListener(
@@ -111,6 +134,10 @@ context.runTutorial = (function($) {
           tutorialPane.hide();
         }
         if(request.action === 'tutorial-create-hoverpane') {
+          // Check if user has banned autoshow
+          if(request.autoshow === true && !autoshowEnabled) {
+            return;
+          }
           context.contentRetriever.insertDataIntoPane(request.query,
               demoPane, tutorialPane.pane);
         }
