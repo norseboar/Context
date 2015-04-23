@@ -13,7 +13,8 @@ context.MAX_QUERY_LENGTH = 200;
 context.WIKIPEDIA_MOBILE_HOST = 'en.m.wikipedia.org';
 context.WIKIPEDIA_HOST = 'en.wikipedia.org';
 context.WIKIPEDIA_PREFIX = 'https://en.m.wikipedia.org/wiki/';
-context.WIKIPEDIA_SEARCH_URL = "http://en.m.wikipedia.org/w/index.php?search=";
+context.WIKIPEDIA_SEARCH_URL =
+    "https://en.m.wikipedia.org/w/index.php?search=";
 
 context.TUTORIAL_WIDTH = context.MAX_WIDTH;
 context.TUTORIAL_HEIGHT = 480;
