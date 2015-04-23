@@ -23,7 +23,7 @@
       "matches": ["<all_urls>"],
       "css": [
         "styles/fonts.css",
-        "styles/hovercard.css"],
+        "styles/hover-pane.css"],
       "js": [
         "scripts/jquery-2.1.1.min.js",
         "scripts/Length.min.js",
