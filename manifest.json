@@ -1,5 +1,5 @@
 {
-  "name": "Context",
+  "name": "Tell Me More",
   "description": "Understand everything you read",
 
   "version": "0.1.0",
@@ -7,7 +7,7 @@
 
   "background": {
     "scripts": ["scripts/background-page.js"],
-    "persistent": true
+    "persistent": false
   },
 
   "options_page": "options.html",

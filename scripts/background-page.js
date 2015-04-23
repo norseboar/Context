@@ -1,9 +1,11 @@
 (function() {
-  console.log('starting');
   // Track if the tutorial has already been run when this browser opened
   // (by default, tutorial should run once every time the browser is opened,
   // unless the user disables it or runs through it)
-  var hasTutorialRun = false;
+  chrome.runtime.onStartup.addListener(function() {
+    console.log('set hasTutorialRun');
+    chrome.storage.local.set({hasTutorialRun: false});
+  });
 
   // Register a context menu
   chrome.contextMenus.create({
@@ -73,21 +75,19 @@
 
       // get whether the tutorial should be run
       if(request.query === 'shouldRunTutorial') {
-        console.log('shouldRun?');
-        // If the tutorial has already run this session, no need to check the
-        // settings
-        if(hasTutorialRun) {
-          sendResponse({shouldRunTutorial: false});
-          return true;
-        }
-        else {
-          chrome.storage.sync.get({
-            shouldRunTutorial: true
-          }, function(results) {
-            sendResponse({shouldRunTutorial: results.shouldRunTutorial});
-          });
-          return true;
-        }
+        chrome.storage.local.get({hasTutorialRun: false}, function(results) {
+          if(results.hasTutorialRun) {
+            sendResponse({shouldRunTutorial: false});
+          }
+          else {
+            chrome.storage.sync.get({
+              shouldRunTutorial: true
+            }, function(results) {
+              sendResponse({shouldRunTutorial: results.shouldRunTutorial});
+            });
+          }
+        });
+        return true;
       }
 
       // User wants to blacklist a site from popups showing whenever text is
@@ -120,18 +120,18 @@
       // However, this means they do not have direct control over the hoverpane that
       // contains them (nor can they communicate directly with that page)
       if(request.action === 'tutorial-intro-never') {
-        hasTutorialRun = true;
+        chrome.storage.local.set({hasTutorialRun: true})
         closeTutorialInAllTabsExcept([]);
         chrome.storage.sync.set({shouldRunTutorial: false});
         chrome.tabs.sendMessage(sender.tab.id, {action: 'tutorial-close'});
       }
       if(request.action === 'tutorial-intro-not-now') {
-        hasTutorialRun = true;
+        chrome.storage.local.set({hasTutorialRun: true})
         closeTutorialInAllTabsExcept([]);
         chrome.tabs.sendMessage(sender.tab.id, {action: 'tutorial-close'});
       }
       if(request.action === 'tutorial-step1') {
-        hasTutorialRun = true;
+        chrome.storage.local.set({hasTutorialRun: true})
         closeTutorialInAllTabsExcept([sender.tab.id]);
         chrome.tabs.sendMessage(sender.tab.id, {action: 'tutorial-step1'});
       }

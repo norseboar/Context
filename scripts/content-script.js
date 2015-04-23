@@ -7,13 +7,12 @@
   var hoverPane;
   var init = function(){
     // Set up tutorial
-    context.runTutorial();
-    // chrome.runtime.sendMessage({query: 'shouldRunTutorial'},
-    //     function(response){
-    //       if(response.shouldRunTutorial){
-    //         context.runTutorial();
-    //       }
-    // });
+    chrome.runtime.sendMessage({query: 'shouldRunTutorial'},
+        function(response){
+          if(response.shouldRunTutorial){
+            context.runTutorial();
+          }
+    });
 
     // Create one hoverpane to be re-used whenever this extension needs it
     var branding = $('<div style="position:relative; height:1.5em">' +
