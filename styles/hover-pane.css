@@ -1,8 +1,10 @@
 /* Styles for context pane */
 .hover-pane {
     border-style: solid;
-    border-width: 1px;
-    border-color: gray;
+    border-width: 2px;
+    /* BLUE border-color: #22a7f0;*/
+    /* GREEN */
+    border-color: #00AF8B;
     box-sizing: content-box;
     box-shadow: 0px 0px 15px #888888;
     background-color: white;
@@ -17,42 +19,44 @@
 
 .hover-pane iframe {
   border:0;
+  position: relative;
+  display: block;
 }
 
 .pane-body {
   height: 0px;
   width: 400px;
   overflow: auto;
+  position: relative;
 }
 
 .pane-branding {
-  background-color: #dbdbdb;
-  position: absolute;
-  bottom: 0;
-  width: 100%;
+  position: relative;
 }
 
-.pane-branding p {
-  position:relative;
-  color: #2a2a2a;
-  font-family: 'Open Sans', sans-serif;
-  font-size: .6em;
-  padding-right: .6em;
-  padding-left: .6em;
-  padding-top: .1em;
-  padding-bottom: .1em;
+.context-first-char {
+  /*
+  HOVERCARD
+  box-shadow: 0px 0px 10px black;
+  background-color: white;
+  color: gray;
+  padding: 2px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  margin-right: 2px;*/
 
-  /* zero out some values so that host pages can't affect them */
-  margin-bottom: 0em;
-  margin-top: .5em;
-  line-height: normal;
-  font-weight: normal;
+
+
+  font-family: 'Museo', sans-serif;
+  font-size: 1.3em;
+  text-transform: uppercase;
+  margin-right: -2px;
 }
 .context-logo {
-  font-family: 'Ubuntu', sans-serif;
-  font-weight: bold;
+  font-family: 'Voces', sans-serif;
   font-size: 1.2em;
   text-transform: lowercase;
+
 
   /* zero out some values so that host pages can't affect them */
   line-height: normal;
@@ -82,13 +86,13 @@
   font-size: .9em;
 }
 
-#branding-attribution {
+.branding-attribution {
   position: absolute;
   left: 0;
   bottom: 0;
 }
 
-#branding-blacklist-link {
+.branding-blacklist-link {
   position: absolute;
   right: 0;
   bottom: 0;
@@ -107,4 +111,10 @@
 .cardstack-highlight:hover {
   text-decoration:underline;
   cursor: pointer;
+}
+
+.tutorial-blacklist p {
+  position: absolute;
+  right: 0;
+  bottom: 0;
 }

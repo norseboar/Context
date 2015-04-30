@@ -53,16 +53,15 @@ context.runTutorial = (function($) {
 
     // first, get the appropriate location for tutorial popup
     var window_width = $(window).width();
-    var width = window_width/3 > context.TUTORIAL_WIDTH ?
-        context.TUTORIAL_WIDTH :
-        window_width/3;
+    var width = context.TUTORIAL_WIDTH;
 
     var xPos = window_width - (context.PANE_PADDING_WIDTH*2) - width;
     var yPos = context.PANE_PADDING_HEIGHT*3;
 
-    var tutorialBranding = $('<div style="position:relative; height:1.5em">' +
-        '<p id="branding-attribution">Powered by ' +
-        '<span class="context-logo"><sup>[1]</sup>Context</span></p>');
+    var tutorialBranding = $('<iframe src="' +
+        chrome.extension.getURL('/templates/tutorial-branding.html') +
+        '" width="' + context.TUTORIAL_WIDTH + '" height="' +
+        context.BRANDING_HEIGHT + '"></iframe>');
 
     var tutorialPane = new context.HoverPane({
       sticky: true,
@@ -75,7 +74,7 @@ context.runTutorial = (function($) {
     tutorialPane.moveCustom(xPos, yPos, width, 0);
     var iframe = $('<iframe src="' +
         chrome.extension.getURL('/templates/tutorial-intro.html') +
-        '" width="' + context.TUTORIAL_INTRO_WIDTH + '" height="' +
+        '" width="' + tutorialPane.getWidth() + '" height="' +
         context.TUTORIAL_INTRO_HEIGHT + '"></iframe>');
     tutorialPane.appendContent(iframe);
 
@@ -83,20 +82,12 @@ context.runTutorial = (function($) {
     // Rather than interfering with the default hoverpane that the main content
     // script manages, create a 'demo pane' that will be hovered next to the
     // tutorial pane
-    var demoBranding = $('<div style="position:relative; height:1.5em">' +
-        '<p id="branding-attribution">Powered by ' +
-        '<span class="context-logo"><sup>[1]</sup>Context</span></p>' +
-        '<p id="branding-blacklist-link"><a id="add-to-blacklist" href="#">' +
-        'Don\'t show context for this page</a></p></div>');
+    var demoBranding = $('<iframe src="' +
+        chrome.extension.getURL('/templates/demo-branding.html') +
+        '" width="' + context.MAX_WIDTH + '" height="' +
+        context.BRANDING_HEIGHT + '"></iframe>');
     var demoPane = new context.HoverPane({
       brandingContent: demoBranding
-    });
-
-    // "Don't show context for this page" button must function differently for
-    // tutorial, since it's not domain-bound
-    $('#add-to-blacklist').click(function() {
-      autoshowEnabled = false;
-      demoPane.hide();
     });
 
     // SET UP LISTENERS =======================================================
@@ -140,6 +131,11 @@ context.runTutorial = (function($) {
               demoPane, tutorialPane.pane);
         }
         if(request.action === 'tutorial-close-demo') {
+          demoPane.hide();
+        }
+
+        if(request.action === 'blacklist-demo') {
+          autoshowEnabled = false;
           demoPane.hide();
         }
       }

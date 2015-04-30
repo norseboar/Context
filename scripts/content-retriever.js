@@ -30,8 +30,8 @@ context.contentRetriever = (function($) {
       hp.reset();
       hp.move(jqElement);
       var url = getContentUrl(query);
-      var iframe = $('<iframe src="' + url + '" width="' + hp.width +
-          '" height="' + hp.height + '"></iframe>');
+      var iframe = $('<iframe src="' + url + '" width="' + hp.getWidth() +
+          '" height="' + hp.getHeight() + '"></iframe>');
       hp.appendContent(iframe);
     }
   };

@@ -90,8 +90,7 @@
         return true;
       }
 
-      // User wants to blacklist a site from popups showing whenever text is
-      // selected
+      // Add a url to blacklist
       if(request.action === 'addToBlacklist') {
         if(!request.url) {
           return false;
@@ -113,6 +112,20 @@
           blacklist.push(request.url);
           chrome.storage.local.set({blacklist: blacklist});
         });
+      }
+      // ACTIONS FROM BRANDING PANES
+      // ===========================================
+      // All branding at the bottom of hoverpanes are shown in iframes to
+      // insulate them from host CSS. This means they must communicate with
+      // the host page through messages
+      if(request.action === 'blacklist-triggered') {
+        // Tell main page that the user has blacklisted a page
+        chrome.tabs.sendMessage(sender.tab.id,
+            {action: 'blacklist-triggered'});
+      }
+      if(request.action === 'blacklist-demo') {
+        chrome.tabs.sendMessage(sender.tab.id,
+            {action: 'blacklist-demo'});
       }
 
       // ACTIONS FROM TUTORIAL IFRAME =================================================

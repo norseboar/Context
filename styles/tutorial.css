@@ -25,6 +25,12 @@ html {
   height: 15px;
 }
 
+.branding-attribution {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+
 #exit-button {
   float: right;
   clear: both;

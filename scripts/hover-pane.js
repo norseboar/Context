@@ -17,17 +17,35 @@ context.HoverPane = (function($) {
     }
     var paneBody = $('<div class="pane-body"></div>');
     var branding = $('<div class="pane-branding"></div>');
-    pane.appendTo('body');
+
     paneBody.appendTo(pane);
     branding.appendTo(pane);
-    options.brandingContent.appendTo(branding);
 
+    if(options.brandingContent) {
+      options.brandingContent.appendTo(branding);
+    }
+
+    pane.appendTo('body');
     pane.hide();
 
     this.pane = pane;
+
     // Create the initial dimensions of the frame (can be changed when placed)
-    this.width = context.MAX_WIDTH;
-    this.height = context.MAX_HEIGHT;
+    var width = context.MAX_WIDTH;
+    var height = context.MAX_HEIGHT;
+
+    this.getWidth = function() {
+      return width;
+    }
+    this.getHeight = function() {
+      return height;
+    }
+    this.getZ = function() {
+      return pane.css('z-index');
+    }
+    this.setZ = function(z) {
+      pane.css('z-index', z);
+    }
 
     // Set up a handler to dismiss the hover pane if it's clicked out of
     if(!options.sticky) {
@@ -75,8 +93,11 @@ context.HoverPane = (function($) {
           context.PANE_PADDING_WIDTH * 2;
 
       if(rightSpace >= context.MIN_WIDTH){
-        this.width = (rightSpace > context.MAX_HEIGHT ? context.MAX_HEIGHT :
+        width = (rightSpace > context.MAX_HEIGHT ? context.MAX_HEIGHT :
           rightSpace);
+        if(options.brandingContent) {
+          options.brandingContent.width(width);
+        }
         pane.css({
           top: (offset.top - context.PANE_PADDING_HEIGHT) + "px",
           left: (offset.left + tarWidth + context.PANE_PADDING_WIDTH) + "px"
@@ -85,23 +106,26 @@ context.HoverPane = (function($) {
       else {
         // It's possible the width of the entire window is smaller than the
         // default (maybe if this ever moved to mobile?)
-        this.width = (docWidth > context.MAX_WIDTH ? context.MAX_HEIGHT : docWidth);
-        this.height = (bottomSpace > context.MAX_HEIGHT ? context.MAX_HEIGHT :
+        width = (docWidth > context.MAX_WIDTH ? context.MAX_HEIGHT : docWidth);
+        if(options.brandingContent) {
+          options.brandingContent.width(width);
+        }
+        height = (bottomSpace > context.MAX_HEIGHT ? context.MAX_HEIGHT :
           bottomSpace);
         // If there's not even enough space at the bottom, just push it
         // down anyway
-        this.height = (bottomSpace < context.MIN_HEIGHT ? context.MIN_HEIGHT :
+        height = (bottomSpace < context.MIN_HEIGHT ? context.MIN_HEIGHT :
             bottomSpace);
         pane.css({
           top: (offset.top + tarHeight + context.PANE_PADDING_HEIGHT) + "px",
-          left: (docWidth - this.width - context.PANE_PADDING_WIDTH) + "px"
+          left: (docWidth - width - context.PANE_PADDING_WIDTH) + "px"
         }).fadeIn(200);
       }
 
       // Height is not set now because animation will take place when content
       // is appended
-      pane.css({ width: this.width });
-      paneBody.css({ width: this.width });
+      pane.css({ width: width });
+      paneBody.css({ width: width });
     };
 
     // Places the hoverpane directly (no intelligence about where it should be moved)
@@ -109,8 +133,10 @@ context.HoverPane = (function($) {
     // determined by content)
     // Effect is a string that defines certain effects for how the movement will occur
     this.moveCustom = function(xPos, yPos, width, effect) {
-      this.width = width;
-
+      width = width;
+      if(options.brandingContent) {
+        options.brandingContent.width(width);
+      }
       if(effect === 'animate') {
         pane.animate({
           width: width,
@@ -124,18 +150,21 @@ context.HoverPane = (function($) {
           top: yPos + 'px',
         }).fadeIn(200);
 
-        pane.css({ width: this.width });
-        paneBody.css({ width: this.width });
+        pane.css({ width: width });
+        paneBody.css({ width: width });
       }
     };
 
     // Empty the pane, and move its size back to default
     this.reset = function(){
       paneBody.empty();
-      this.width = context.MAX_WIDTH;
-      this.height = context.MAX_HEIGHT;
-      pane.css({ width: this.width })
-      paneBody.css({ height: 0, width: this.width })
+      width = context.MAX_WIDTH;
+      if(options.brandingContent) {
+        options.brandingContent.width(width);
+      }
+      height = context.MAX_HEIGHT;
+      pane.css({ width: width })
+      paneBody.css({ height: 0, width: width })
     };
 
     // Add content to the hoverPane. This can be done without this method through
@@ -148,9 +177,9 @@ context.HoverPane = (function($) {
       maxHeight = maxHeight || context.MAX_HEIGHT
       var h = content.outerHeight() < maxHeight ?
         content.outerHeight() : maxHeight;
-      this.height = h;
+      height = h;
       if(h > paneBody.height()){
-        paneBody.animate({ height: (h + branding.height())});
+        paneBody.animate({ height: h});
       }
     };
 
@@ -158,11 +187,5 @@ context.HoverPane = (function($) {
       paneBody.empty();
     };
 
-    this.getZ = function() {
-      return pane.css('z-index');
-    }
-    this.setZ = function(z) {
-      pane.css('z-index', z);
-    }
   };
 })(jQuery);

@@ -7,6 +7,8 @@ context.MIN_WIDTH = 280;
 context.PANE_PADDING_WIDTH = 10;
 context.PANE_PADDING_HEIGHT = 5;
 
+context.BRANDING_HEIGHT = 22;
+
 context.MAX_QUERY_WORDS = 6;
 context.MAX_QUERY_LENGTH = 200;
 
@@ -20,3 +22,5 @@ context.TUTORIAL_WIDTH = context.MAX_WIDTH;
 context.TUTORIAL_HEIGHT = 480;
 context.TUTORIAL_INTRO_WIDTH = context.MAX_WIDTH;
 context.TUTORIAL_INTRO_HEIGHT = 150;
+
+context.DEMO_BLACKLIST_EVENT = chrome.runtime.id + '_demo-blacklist';
