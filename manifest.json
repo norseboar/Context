@@ -1,6 +1,6 @@
 {
   "name": "Tell Me More",
-  "description": "Understand everything you read",
+  "description": "Information where you need it",
 
   "version": "0.1.0",
   "manifest_version": 2,
@@ -52,7 +52,8 @@
     "templates/*"
   ],
   "icons": {
-    "48": "images/smallLogo1_48_padding.png",
-    "128": "images/smallLogo2_128_padding.png"
+    "16": "logo/logo_green_16.png",
+    "48": "logo/logo-hover_green-on-white_48.png",
+    "128": "logo/logo-hover_green-on-white_128.png"
   }
 }

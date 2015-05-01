@@ -7,7 +7,7 @@ context.MIN_WIDTH = 280;
 context.PANE_PADDING_WIDTH = 10;
 context.PANE_PADDING_HEIGHT = 5;
 
-context.BRANDING_HEIGHT = 22;
+context.BRANDING_HEIGHT = 21;
 
 context.MAX_QUERY_WORDS = 6;
 context.MAX_QUERY_LENGTH = 200;

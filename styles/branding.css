@@ -6,7 +6,7 @@ body {
 
 p {
   margin-top: 5px;
-  margin-bottom: 2px;
+  margin-bottom: 0px;
 }
 
 .branding {
@@ -14,29 +14,32 @@ p {
   width: 100%;
 
   font-family: 'Open Sans', sans-serif;
-  font-size: 10px;
+  font-size: 9px;
 }
 
-.logo-first-char {
-  font-family: 'Museo', sans-serif;
-  font-size: 13px;
-  text-transform: uppercase;
-  margin-right: -1px;
-}
-.logo {
+.signature {
   position: absolute;
   left: 0;
   bottom: 0;
   padding-left: 3px;
+}
 
+.logo-first-char {
+  font-family: 'Museo', sans-serif;
+  font-size: 12px;
+  text-transform: uppercase;
+  margin-right: -1px;
+}
+
+.logo {
   font-family: 'Voces', sans-serif;
-  font-size: 11px;
-  text-transform: lowercase;
+  font-size: 8px;
+  text-transform: uppercase;
 }
 
 #blacklist-link {
   color: white;
   position: absolute;
-  right: 0;
-  bottom: 0;
+  right: 2px;
+  bottom: 1px;
 }
