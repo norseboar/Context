@@ -19,6 +19,8 @@
 
 .hover-pane iframe {
   border:0;
+  padding: 0;
+  margin: 0;
   position: relative;
   display: block;
 }

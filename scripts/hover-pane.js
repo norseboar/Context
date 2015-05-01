@@ -49,7 +49,7 @@ context.HoverPane = (function($) {
 
     // Set up a handler to dismiss the hover pane if it's clicked out of
     if(!options.sticky) {
-      $('body').mousedown(function() {
+      $('html').mousedown(function() {
         if(!pane.is(':hover')) {
           pane.fadeOut(200);
         }
@@ -84,22 +84,29 @@ context.HoverPane = (function($) {
       var docWidth = $(window).width();
       var tarWidth = target.outerWidth();
       var tarHeight = target.outerHeight();
-      var topSpace = $(window).scrollTop() + offset.top -
-          (context.PANE_PADDING_HEIGHT * 2);
+      var topSpace = $(window).scrollTop() + offset.top;
       var bottomSpace = $(window).scrollTop() + docHeight - offset.top -
-          tarHeight - branding.height() - (context.PANE_PADDING_HEIGHT * 2);
+          context.PANE_PADDING_HEIGHT;
+      var underTarSpace = bottomSpace - tarHeight;
       var leftSpace = offset.left - (context.PANE_PADDING_WIDTH * 2);
       var rightSpace = docWidth - offset.left - tarWidth -
           context.PANE_PADDING_WIDTH * 2;
+      var paneSpace = context.MAX_HEIGHT + context.PANE_PADDING_HEIGHT +
+          context.BRANDING_HEIGHT;
 
       if(rightSpace >= context.MIN_WIDTH){
-        width = (rightSpace > context.MAX_HEIGHT ? context.MAX_HEIGHT :
+        width = (rightSpace > context.MAX_WIDTH ? context.MAX_WIDTH :
           rightSpace);
         if(options.brandingContent) {
           options.brandingContent.width(width);
         }
+        var topPos = offset.top - context.PANE_PADDING_HEIGHT;
+        // If the target is too low, shift the hover pane up a bit
+        if(bottomSpace < paneSpace && docHeight >= paneSpace) {
+          topPos = docHeight + $(window).scrollTop() - paneSpace;
+        }
         pane.css({
-          top: (offset.top - context.PANE_PADDING_HEIGHT) + "px",
+          top: (topPos) + "px",
           left: (offset.left + tarWidth + context.PANE_PADDING_WIDTH) + "px"
         }).fadeIn(200);
       }
@@ -110,12 +117,12 @@ context.HoverPane = (function($) {
         if(options.brandingContent) {
           options.brandingContent.width(width);
         }
-        height = (bottomSpace > context.MAX_HEIGHT ? context.MAX_HEIGHT :
-          bottomSpace);
+        height = (underTarSpace > context.MAX_HEIGHT ? context.MAX_HEIGHT :
+          underTarSpace);
         // If there's not even enough space at the bottom, just push it
         // down anyway
-        height = (bottomSpace < context.MIN_HEIGHT ? context.MIN_HEIGHT :
-            bottomSpace);
+        height = (underTarSpace < context.MIN_HEIGHT ? context.MIN_HEIGHT :
+            underTarSpace);
         pane.css({
           top: (offset.top + tarHeight + context.PANE_PADDING_HEIGHT) + "px",
           left: (docWidth - width - context.PANE_PADDING_WIDTH) + "px"
