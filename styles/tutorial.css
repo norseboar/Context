@@ -1,6 +1,14 @@
 html {
   padding-bottom: 0px;
 }
+
+h3 {
+  margin-top: 0px;
+}
+
+.tutorial-main {
+  height: 300px;
+}
 .tutorial {
   position: relative;
   margin-top: 20px;
@@ -17,8 +25,21 @@ html {
 .tutorial button {
   margin-top: 15px;
 }
+
+.sample-text {
+
+}
+
 .next-button {
-  float: right;
+  position: absolute;
+  bottom: 10px;
+  right: 0px;
+}
+
+.prev-button {
+  position: absolute;
+  bottom: 10px;
+  left: 0px;
 }
 
 .header {
@@ -29,6 +50,12 @@ html {
   position: absolute;
   left: 0;
   bottom: 0;
+}
+
+.warning {
+  color:gray;
+  font-style: italic;
+  font-size: .8em;
 }
 
 #exit-button {

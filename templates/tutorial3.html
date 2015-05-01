@@ -7,23 +7,20 @@
     <script src="../scripts/tutorialCore.js" defer></script>
     <script src="../scripts/tutorial3.js" defer></script>
   </head>
-  <div class="tutorial">
-    <span class="glyphicon glyphicon-remove" id="exit-button"></span>
-    <h2>Disabling auto-show</h2>
-    <p>By default, Tell Me More will show you an info pane whenever you select
-      text (unless it's more than five words). While it's nice to be able to
-      look up terms with just a selection, it's not great for every page. You
-      can disable auto-show for any page by clicking the link in the
-      bottom-right (try it now: select any word, then disable the automatic
-      popup). You can see and edit your list of disabled pages (or disable the
-      auto-show feature entirely) in the <a id="options-link" target="_blank">
-      options page</a>, which can be found in the extensions management page.
-    </p>
-    <br/>
-    <p>When auto-show has been disabled, you can still look up terms by
-      right-clicking a selection and selecting "Tell me more...".</p>
-    <br/>
+  <div class="tutorial tutorial-main">
+    <div class="header">
+      <span class="glyphicon glyphicon-remove" id="exit-button"></span>
+    </div>
+    <h3>Disable lookups</h3>
+    <p>Automatic lookups can be disabled in
+    <a id="options-link" target="_blank">options</a>.</p>
+    <p>Tell me more can still be accessed in the right-click menu. Select some
+    text below, right click, and select "Tell me more".</p>
+    <p class="well sample-text">Last Thursday night, Nigerian troops rescued 160
+        children from Boko Haram.</p>
+    <button class="prev-button btn btn-primary" type="button"
+        id="context-step2">Prev</button>
     <button class="next-button btn btn-primary" type="button"
-        id="context-tutorial-end">That's it!</button>
+        id="context-tutorial-end">That's it</button>
   </div>
 </div>

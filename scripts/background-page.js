@@ -143,9 +143,13 @@
         closeTutorialInAllTabsExcept([]);
         chrome.tabs.sendMessage(sender.tab.id, {action: 'tutorial-close'});
       }
-      if(request.action === 'tutorial-step1') {
+      if(request.action === 'tutorial-start') {
         chrome.storage.local.set({hasTutorialRun: true})
         closeTutorialInAllTabsExcept([sender.tab.id]);
+        chrome.tabs.sendMessage(sender.tab.id, {action: 'tutorial-start'});
+      }
+      if(request.action === 'tutorial-step1') {
+
         chrome.tabs.sendMessage(sender.tab.id, {action: 'tutorial-step1'});
       }
       if(request.action === 'tutorial-step2') {

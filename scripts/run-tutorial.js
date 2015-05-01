@@ -13,39 +13,41 @@ context.runTutorial = (function($) {
     // TUTORIAL PROGRESS ======================================================
     // These functions are not automatically run, rather they are called as
     // the tutorial progresses
-    var runStep1 = function() {
+    var startTutorial = function() {
       // center pane
       var xPos = ($(window).width() - context.TUTORIAL_WIDTH)/2;
       var yPos = ($(window).height() - context.TUTORIAL_HEIGHT)/3;
       tutorialPane.moveCustom(xPos, yPos, context.TUTORIAL_WIDTH, 'animate');
 
-      // Empty pane and load in new content
-      tutorialPane.empty();
       var iframe = $('<iframe src="' +
           chrome.extension.getURL('/templates/tutorial1.html') +
           '" width="' + context.TUTORIAL_WIDTH + '" height="' +
-          context.TUTORIAL_HEIGHT + '"></iframe>');
-      tutorialPane.appendContent(iframe, context.TUTORIAL_HEIGHT);
-    };
+          context.TUTORIAL_HEIGHT + 'px"></iframe>');
 
-    var runStep2 = function() {
       tutorialPane.empty();
-      var iframe = $('<iframe src="' +
-          chrome.extension.getURL('/templates/tutorial2.html') +
-          '" width="' + context.TUTORIAL_WIDTH + '" height="' +
-          380 + 'px"></iframe>');
-      tutorialPane.appendContent(iframe, context.TUTORIAL_HEIGHT);
-    };
+      tutorialPane.appendContent(iframe);
+    }
+    var runTutorialStep = function(stepNum) {
+      if(stepNum === 3) {
+        // Disable autoshow for the tutorial about disabling
+        autoshowEnabled = false;
+      }
+      else {
+        autoshowEnabled = true;
+      }
 
-    var runStep3 = function() {
-      tutorialPane.empty();
       var iframe = $('<iframe src="' +
-          chrome.extension.getURL('/templates/tutorial3.html') +
+          chrome.extension.getURL('/templates/tutorial' + stepNum + '.html') +
           '" width="' + context.TUTORIAL_WIDTH + '" height="' +
-          context.TUTORIAL_HEIGHT + '"></iframe>');
-      tutorialPane.appendContent(iframe, context.TUTORIAL_HEIGHT);
-    };
-
+          context.TUTORIAL_HEIGHT + 'px"></iframe>');
+      tutorialPane.empty({
+        fade: true,
+        callAfter: function() {
+          tutorialPane.appendContent(iframe, context.TUTORIAL_HEIGHT,
+              {fade: true});
+        }
+      });
+    }
 
     // INITIALIZE AND DISPLAY PANE ============================================
     // If the user is in the middle of the tutorial, some things behave
@@ -91,6 +93,10 @@ context.runTutorial = (function($) {
     });
 
     // SET UP LISTENERS =======================================================
+    window.addEventListener(context.TUTORIAL_CLOSE_MESSAGE,
+        function(event) {
+          tutorialPane.hide();
+        }, false);
     chrome.runtime.onMessage.addListener(
       function(request, sender, sendResponse) {
         if(sender.id !== chrome.runtime.id) {
@@ -110,14 +116,19 @@ context.runTutorial = (function($) {
         if(request.action === 'tutorial-close') {
           tutorialPane.hide();
         }
-        if(request.action === 'tutorial-step1') {
-          runStep1();
+        if(request.action === 'tutorial-start') {
+          startTutorial();
         }
+
+        if(request.action === 'tutorial-step1') {
+          runTutorialStep(1);
+        }
+
         if(request.action === 'tutorial-step2') {
-          runStep2();
+          runTutorialStep(2);
         }
         if(request.action === 'tutorial-step3') {
-          runStep3();
+          runTutorialStep(3);
         }
         if(request.action === 'tutorial-end') {
           tutorialPane.hide();

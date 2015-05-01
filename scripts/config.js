@@ -19,8 +19,8 @@ context.WIKIPEDIA_SEARCH_URL =
     "https://en.m.wikipedia.org/w/index.php?search=";
 
 context.TUTORIAL_WIDTH = context.MAX_WIDTH;
-context.TUTORIAL_HEIGHT = 480;
+context.TUTORIAL_HEIGHT = 330;
 context.TUTORIAL_INTRO_WIDTH = context.MAX_WIDTH;
 context.TUTORIAL_INTRO_HEIGHT = 150;
 
-context.DEMO_BLACKLIST_EVENT = chrome.runtime.id + '_demo-blacklist';
+context.TUTORIAL_CLOSE_MESSAGE = 'tutorial-close_' + chrome.runtime.id;

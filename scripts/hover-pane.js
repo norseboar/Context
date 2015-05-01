@@ -178,9 +178,15 @@ context.HoverPane = (function($) {
     // jQuery selectors, but this method is preferred.
     // content must be a jQuery element
     // maxHeight is an optional parameter for what the max height of this pane can be
-    this.appendContent = function(content, maxHeight){
-      content.appendTo(paneBody);
-
+    this.appendContent = function(content, maxHeight, options){
+      var options = options || {};
+      if(options.fade) {
+        content.appendTo(paneBody).hide();
+        content.fadeIn(200)
+      }
+      else {
+        content.appendTo(paneBody);
+      }
       maxHeight = maxHeight || context.MAX_HEIGHT
       var h = content.outerHeight() < maxHeight ?
         content.outerHeight() : maxHeight;
@@ -190,8 +196,22 @@ context.HoverPane = (function($) {
       }
     };
 
-    this.empty = function() {
-      paneBody.empty();
+    this.empty = function(options) {
+      var that = this;
+      var options = options || {};
+      if(options.fade) {
+        // fade the body out before emptying and re-showing it
+        paneBody.fadeOut(200, function() {
+          $(this).empty();
+          $(this).show();
+          if(options.callAfter) {
+            options.callAfter();
+          }
+        });
+      }
+      else {
+        paneBody.empty();
+      }
     };
 
   };
