@@ -11,10 +11,14 @@ var context = context || {};
   });
 
   document.getElementById('never').addEventListener('click', function() {
-    chrome.runtime.sendMessage({action: 'tutorial-intro-never'});
+    context.iframeUtils.sendMessageToRuntime({
+      action: 'tutorial-intro-never'
+    });
   });
 
   document.getElementById('step1').addEventListener('click', function() {
-    chrome.runtime.sendMessage({action: 'tutorial-start'});
+    context.iframeUtils.sendMessageToRuntime({
+      action: 'tutorial-start'
+    });
   });
 })();
