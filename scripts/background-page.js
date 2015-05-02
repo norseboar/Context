@@ -122,7 +122,26 @@
         // Tell main page that the user has blacklisted a page
         chrome.tabs.sendMessage(sender.tab.id,
             {action: 'blacklist-triggered'});
+        // Send a notification to the user explaining how to blacklist all
+        // pages (this is done in options menu, and not all users know about
+        // it)
+
+        var notification = chrome.notifications.create({
+          type: 'basic',
+          iconUrl: 'logo/logo-hover_green-on-white_48.png',
+          title: 'Hovercards disabled for this page',
+          message: 'You can configure when hovercards are shown in the' +
+              ' options page. Click here to go.'
+        }, function(notificationId) {
+          chrome.notifications.onClicked.addListener(function(clickedId) {
+            if(clickedId === notificationId){
+              chrome.tabs.create({url: 'options.html'});
+            }
+          });
+        });
+
       }
+
       if(request.action === 'blacklist-demo') {
         chrome.tabs.sendMessage(sender.tab.id,
             {action: 'blacklist-demo'});

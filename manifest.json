@@ -15,7 +15,8 @@
   "permissions": [
     "storage",
     "contextMenus",
-    "tabs"
+    "tabs",
+    "notifications"
   ],
 
   "content_scripts": [
@@ -49,7 +50,8 @@
     "scripts/*",
     "styles/*",
     "fonts/*",
-    "templates/*"
+    "templates/*",
+    "icons/*"
   ],
   "icons": {
     "16": "logo/logo_green_16.png",
