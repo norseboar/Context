@@ -19,7 +19,7 @@ context.WIKIPEDIA_SEARCH_URL =
     "https://en.m.wikipedia.org/w/index.php?search=";
 
 context.TUTORIAL_WIDTH = context.MAX_WIDTH;
-context.TUTORIAL_HEIGHT = 330;
+context.TUTORIAL_HEIGHT = 370;
 context.TUTORIAL_INTRO_WIDTH = context.MAX_WIDTH;
 context.TUTORIAL_INTRO_HEIGHT = 150;
 
