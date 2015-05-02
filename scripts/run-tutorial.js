@@ -70,9 +70,9 @@ context.runTutorial = (function($) {
       brandingContent: tutorialBranding,
       fixed: true
     });
-    // tutorial pane must have Z dialed back so that other hovercards overlap
-    // it when the user is experimenting
-    tutorialPane.setZ(tutorialPane.getZ() - 1);
+    // tutorial pane must have Z dialed back so that other messages can pop up
+    // over the pane (such as error messages)
+    tutorialPane.setZ(tutorialPane.getZ() - 5);
     tutorialPane.moveCustom(xPos, yPos, width, 0);
     var iframe = $('<iframe src="' +
         chrome.extension.getURL('/templates/tutorial-intro.html') +

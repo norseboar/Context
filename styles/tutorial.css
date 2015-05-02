@@ -58,6 +58,39 @@ h3 {
   font-size: .8em;
 }
 
+.mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  height: 100%;
+  width: 100%;
+
+  background-color: black;
+  opacity: .3;
+  z-index: 2147483646;
+}
+
+.error-pane {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
+  height: 125;
+  width: 300px;
+  background-color: white;
+  /* The z-index must be comically large because this is an extension.
+     The largest z-index of the page that is being augmented is unknown, so
+     int max is used to be safe.
+     While most hover panes already have a z-index this high, the tutorial's is
+     one lower*/
+  z-index:2147483647;
+}
 #exit-button {
   float: right;
   clear: both;
