@@ -100,7 +100,7 @@ context.HoverPane = (function($) {
         if(options.brandingContent) {
           options.brandingContent.width(width);
         }
-        var topPos = offset.top - context.PANE_PADDING_HEIGHT;
+        var topPos = offset.top;
         // If the target is too low, shift the hover pane up a bit
         if(bottomSpace < paneSpace && docHeight >= paneSpace) {
           topPos = docHeight + $(window).scrollTop() - paneSpace;
