@@ -1,6 +1,6 @@
 {
   "name": "Tell Me More",
-  "description": "Information where you need it",
+  "description": "Look up terms in Wikipedia without leaving the page",
 
   "version": "0.1.0",
   "manifest_version": 2,
