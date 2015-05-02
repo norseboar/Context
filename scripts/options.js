@@ -10,8 +10,6 @@ var re_weburl = new RegExp(
     "(?:\\.(?:[a-z\\u00a1-\\uffff0-9]-*)*[a-z\\u00a1-\\uffff0-9]+)*" +
     // TLD identifier
     "(?:\\.(?:[a-z\\u00a1-\\uffff]{2,}))" +
-    // resource path
-    "(?:/\\S*)?" +
   "$", "i"
 );
 
@@ -56,29 +54,28 @@ var addBlacklistEntry = function() {
 
   var textElem = document.getElementById('new-text');
   var url = textElem.value;
-  // url will be stored without protocol, fragment identifiers, or query string
-  // b/c the extension will not discriminate based on those. Trailing slashes
-  // will also be omitted
+  // domain will be stored without protocol
+  // b/c the extension will not discriminate based on those.
   url = url.replace('http://', '');
   url = url.replace('https://', '');
-  url = url.split('?', 1)[0];
-  url = url.split('#', 1)[0];
-  if(url[url.length - 1] == '/') {
-    url = url.slice(0, url.length - 1);
-  }
-  if(!re_weburl.test(url)){
+  url = url.split('/', 1)[0];
+  // piece together the actual domain
+  var domainSplit = url.split('.');
+  var domain = domainSplit[domainSplit.length - 2] + '.' +
+      domainSplit[domainSplit.length - 1];
+  if(!re_weburl.test(domain)){
     errorElem.innerHTML = "Invalid URL format"
   }
   else {
     var option = document.createElement('option');
-    option.text = url;
+    option.text = domain;
     document.getElementById('blacklist').add(option);
     textElem.value = '';
     chrome.storage.local.get({
       'blacklist': []
     }, function(results){
       var blacklist = results.blacklist;
-      blacklist.push(url);
+      blacklist.push(domain);
       chrome.storage.local.set({blacklist: blacklist});
     });
   }

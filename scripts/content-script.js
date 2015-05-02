@@ -9,9 +9,10 @@
     // Set up tutorial
     chrome.runtime.sendMessage({query: 'shouldRunTutorial'},
         function(response){
-          if(response.shouldRunTutorial){
-            context.runTutorial();
-          }
+          context.runTutorial();
+          // if(response.shouldRunTutorial){
+          //   context.runTutorial();
+          // }
     });
 
     // Create one hoverpane to be re-used whenever this extension needs it
@@ -33,8 +34,12 @@
           showPaneFromSelection();
         }
         if(request.action === 'blacklist-triggered') {
-          var url = window.location.hostname + window.location.pathname;
-          chrome.runtime.sendMessage({action: 'addToBlacklist', url: url});
+          // Blacklist the entire domain
+          var domain = window.location.hostname;
+          var domainSplit = domain.split('.');
+          domain = domainSplit[domainSplit.length - 2] + '.' +
+              domainSplit[domainSplit.length - 1];
+          chrome.runtime.sendMessage({action: 'addToBlacklist', url: domain});
           $('body').off('mouseup.showPane');
           hoverPane.hide();
         }
@@ -47,11 +52,15 @@
     chrome.runtime.sendMessage({query: 'autoshow'}, function(response) {
       if(response.autoshow) {
         // next, check if the current site is on the autoshow blacklist
-        var url = window.location.hostname + window.location.pathname;
+        var domain = window.location.hostname;
+        // Strip out everything but the domain
+        var domainSplit = domain.split('.');
+        domain = domainSplit[domainSplit.length - 2] + '.' +
+            domainSplit[domainSplit.length - 1];
         var blacklisted = false;
         chrome.runtime.sendMessage({query: 'blacklist'}, function(response) {
           for(var i = 0; i < response.blacklist.length; i++) {
-            if(response.blacklist[i] === url) {
+            if(response.blacklist[i] === domain) {
               blacklisted = true;
               break;
             }
