@@ -1,0 +1,42 @@
+.container {
+  height: 500px;
+  width: 500px;
+  margin: 50px;
+  position: relative;
+  top: 20px;
+
+}
+
+.icon {
+  height: 680px;
+  width: 920px;
+  background-color: #00AF8B;
+  position: relative;
+  top: 50px;
+  left: 50px;
+  text-align: center;
+}
+
+.text {
+  position: relative;
+  top: 280px;
+}
+.char {
+  font-family: 'Museo', sans-serif;
+  color: white;
+  font-size: 128px;
+  margin-right: -25px;
+}
+
+.logo {
+  line-height: 40px;
+  font-family: 'Voces';
+  color: white;
+  font-size: 112px;
+}
+
+.slogan {
+  font-family: 'Open Sans';
+  color: white;
+  font-size: 48px;
+}
