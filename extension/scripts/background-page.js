@@ -129,7 +129,7 @@
         var notification = chrome.notifications.create({
           type: 'basic',
           iconUrl: 'logo/logo-hover_green-on-white_48.png',
-          title: 'Hovercards disabled for this page',
+          title: 'Hovercards disabled for this domain',
           message: 'You can configure when hovercards are shown in the' +
               ' options page. Click here to go.'
         }, function(notificationId) {

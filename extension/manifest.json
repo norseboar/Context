@@ -1,8 +1,8 @@
 {
   "name": "Tell Me More",
-  "description": "Look up terms in Wikipedia without leaving the page",
+  "description": "Look up terms in Wikipedia without leaving your current page",
 
-  "version": "0.1.0",
+  "version": "0.1.1",
   "manifest_version": 2,
 
   "background": {
@@ -27,7 +27,6 @@
         "styles/hover-pane.css"],
       "js": [
         "scripts/jquery-2.1.1.min.js",
-        "scripts/Length.min.js",
         "scripts/utilities.js",
         "scripts/config.js",
         "scripts/cardstacks.js",
