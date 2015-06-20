@@ -1,0 +1,13 @@
+{
+  "name": "tell-me-more-api",
+  "main": "server.js",
+  "description": "Provide API for Tell Me More to retrieve data from many sources about a given text",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/norseboar/tell-me-more"
+  },
+  "dependencies": {
+    "body-parser": "^1.13.1",
+    "express": "^4.12.4"
+  }
+}

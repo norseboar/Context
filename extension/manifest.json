@@ -2,7 +2,7 @@
   "name": "Tell Me More",
   "description": "Look up terms in Wikipedia without leaving your current page",
 
-  "version": "0.1.2",
+  "version": "0.2.0",
   "manifest_version": 2,
 
   "background": {
